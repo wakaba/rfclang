@@ -1126,10 +1126,11 @@
   <s:if test="@fullname"><li class="rfc-author-fullname"><s:value-of select="@fullname" /></li></s:if>
   <s:if test="organization"><li class="rfc-organization"><s:value-of select="organization" /></li> </s:if>
   <s:for-each select="(address/postal/street|address/postal/city|address/postal/region|address/postal/code|address/postal/country)">
-    <li class="rfc-{local-name()}"><s:choose>
-      <s:when test="@ja:text"><s:value-of select="@ja:text" /></s:when>
-      <s:otherwise><s:value-of select="." /></s:otherwise>
-    </s:choose></li>
+    <s:choose>
+    <s:when test="@ja:show = 'no'"></s:when>
+    <s:when test="@ja:text"><li class="rfc-{local-name()}"><s:value-of select="@ja:text" /></li></s:when>
+    <s:otherwise><li class="rfc-{local-name()}"><s:value-of select="." /></li></s:otherwise>
+    </s:choose>
   </s:for-each>
   <s:if test="address/phone">
     <li class="rfc-phone">電話: <s:choose>
@@ -1446,7 +1447,7 @@
 </s:stylesheet>
 <!-- rfc-ja.xsl *** RFC 2629 + 日本語訳 XML 形式 → HTML 4.01
                     XSLT スタイルシート
-                $Date: 2002/05/08 14:44:39 $
+                $Date: 2002/05/09 09:54:06 $
 -->
 <!-- 謝辞
        この XSLT は、 xml2rfc 1.12 package の rfc2629.xslt から

@@ -1,3 +1,9 @@
+2002-05-09  wakaba <w@suika.fam.cx>
+
+	* rfc_ja.xsl (address/postal/*/@ja:show): New supported
+	attribute.
+	* rfc-ja-style.css (.rfc-list-empty): New style rule.
+
 2002-05-08  wakaba <w@suika.fam.cx>
 
 	* rfc_ja.xsl, rfc-ja-style.css: Updated.
