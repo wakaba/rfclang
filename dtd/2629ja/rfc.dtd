@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="iso-2022-jp"?>
+<!-- Markup Language for IETF RFC (RFC 2629) + Japanese Translation Markup
+     
+     Document Type Definition for an translated RFC document
+     
+     Copyright 2003 Wakaba <w@suika.fam.cx>.
+     Revision: $Date: 2003/09/12 11:19:35 $
+     
+     SYSTEM "http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/2629ja/rfc.dtd"
+  -->
+
+<!-- Switchers to include/ignore each vocabulary -->
+<!ENTITY % rfc2629.module "INCLUDE">
+<!ENTITY % rfc2629ja.module "INCLUDE">
+<!ENTITY % XHTML.module "INCLUDE">
+<!ENTITY % XHTML2.module "IGNORE">
+
+<!-- Namespace names -->
+<!ENTITY % rfc2629.xmlns "urn:x-suika-fam-cx:markup:ietf:rfc:2629:">
+<!ENTITY % rfc2629ja.xmlns "http://suika.fam.cx/~wakaba/lang/rfc/translation/">
+<!ENTITY % XHTML.xmlns "http://www.w3.org/1999/xhtml">
+<!ENTITY % XHTML2.xmlns "http://www.w3.org/2003/06/xhtml2">
+
+<!-- Base URIs for the relavant DTD modules -->
+<!ENTITY % rfc2629.sysid.base "../2629/">
+<!ENTITY % rfc2629ja.sysid.base "">
+<!ENTITY % XHTML.sysid.base "http://www.w3.org/TR/xhtml-modularization/DTD/">
+<!ENTITY % XHTML2.sysid.base "http://www.w3.org/TR/xhtml2/DTD/">
+
+<!-- Namespace prefix -->
+<!ENTITY % rfc2629.prefix "">
+<!ENTITY % rfc2629.prefixed "IGNORE">
+<!ENTITY % rfc2629ja.prefix "ja">
+<!ENTITY % rfc2629ja.prefixed "INCLUDE">
+<!ENTITY % XHTML.prefix "h">
+<!ENTITY % XHTML.prefixed "INCLUDE">
+<!ENTITY % XHTML2.prefix "h2">
+<!ENTITY % XHTML2.prefixed "INCLUDE">
+
+<!-- Datatype modules -->
+<![%XHTML.module;[
+<!ENTITY % xhtml-datatypes.module "%XHTML.module;">
+<![%xhtml-datatypes.module;[
+<!ENTITY % xhtml-datatypes.decl
+     'PUBLIC "-//W3C//ENTITIES XHTML Datatypes 1.0//EN"
+             "%XHTML.sysid.base;xhtml-datatypes-1.mod"'>
+<!ENTITY % xhtml-datatypes.mod %xhtml-datatypes.decl;>
+%xhtml-datatypes.mod;]]>
+]]>
+<!-- a URI reference -->
+<!ENTITY % URI.datatype "CDATA">
+
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.datatypes.module "INCLUDE">
+<![%rfc2629.datatypes.module;[
+<!ENTITY % rfc2629.datatype.decl 'SYSTEM "%rfc2629.sysid.base;datatype.mod"'>
+<!ENTITY % rfc2629.datatype.mod %rfc2629.datatype.decl;>
+%rfc2629.datatype.mod;]]>
+]]>
+
+<!-- Placefolders for foreign namespace declarations -->
+<!ENTITY % rfc2629.xmlns.extra.attrib "">
+<!ENTITY % rfc2629ja.xmlns.extra.attrib "">
+<!ENTITY % XHTML.xmlns.extra.attrib "">
+<!ENTITY % XHTML2.xmlns.extra.attrib "">
+
+<![%rfc2629.module;[
+<![%rfc2629.prefixed;[
+<!ENTITY % rfc2629.xmlns.decl.attrib
+	"xmlns:%rfc2629.prefix;	%URI.datatype;	#FIXED '%rfc2629.xmlns;'">
+]]>
+<!ENTITY % rfc2629.xmlns.decl.attrib
+	"xmlns	%URI.datatype;	#FIXED '%rfc2629.xmlns;'">
+]]>
+<!ENTITY % rfc2629.xmlns.decl.attrib "">
+
+<![%rfc2629.module;[
+<![%rfc2629ja.prefixed;[
+<!ENTITY % rfc2629ja.xmlns.decl.attrib
+	"xmlns:%rfc2629ja.prefix;	%URI.datatype;	#FIXED '%rfc2629ja.xmlns;'">
+]]>
+<!ENTITY % rfc2629ja.xmlns.decl.attrib
+	"xmlns	%URI.datatype;	#FIXED '%rfc2629ja.xmlns;'">
+]]>
+<!ENTITY % rfc2629ja.xmlns.decl.attrib "">
+
+<![%XHTML.module;[
+<![%XHTML.prefixed;[
+<!ENTITY % XHTML.xmlns.decl.attrib
+	"xmlns:%XHTML.prefix;	%URI.datatype;	#FIXED '%XHTML.xmlns;'">
+]]>
+<!ENTITY % XHTML.xmlns.decl.attrib
+	"xmlns	%URI.datatype;	#FIXED '%XHTML.xmlns;'">
+]]>
+<!ENTITY % XHTML.xmlns.decl.attrib "">
+
+<![%XHTML2.module;[
+<![%XHTML2.prefixed;[
+<!ENTITY % XHTML2.xmlns.decl.attrib
+	"xmlns:%XHTML2.prefix;	%URI.datatype;	#FIXED '%XHTML2.xmlns;'">
+]]>
+<!ENTITY % XHTML2.xmlns.decl.attrib
+	"xmlns	%URI.datatype;	#FIXED '%XHTML2.xmlns;'">
+]]>
+<!ENTITY % XHTML2.xmlns.decl.attrib "">
+
+<!ENTITY % NS.decl.attrib
+	"%rfc2629.xmlns.decl.attrib;
+	%rfc2629ja.xmlns.decl.attrib;
+	%XHTML.xmlns.decl.attrib;
+	%XHTML2.xmlns.decl.attrib;
+	%rfc2629.xmlns.extra.attrib;
+	%rfc2629ja.xmlns.extra.attrib;
+	%XHTML.xmlns.extra.attrib;
+	%XHTML2.xmlns.extra.attrib;">
+
+<!ENTITY % rfc2629.xmlns.attrib "%NS.decl.attrib;">
+<!ENTITY % rfc2629ja.xmlns.attrib "%NS.decl.attrib;">
+<!ENTITY % XHTML.xmlns.attrib "%NS.decl.attrib;">
+<!ENTITY % XHTML2.xmlns.attrib "%NS.decl.attrib;">
+
+<!-- Notation module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.notation.module "INCLUDE">
+<![%rfc2629.notation.module;[
+<!ENTITY % rfc2629.notation.decl 'SYSTEM "%rfc2629.sysid.base;notation.mod"'>
+<!ENTITY % rfc2629.notation.mod %rfc2629.notation.decl;>
+%rfc2629.notation.mod;]]>
+]]>
+
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.notation.module "INCLUDE">
+<![%rfc2629ja.notation.module;[
+<!ENTITY % rfc2629ja.notation.decl 'SYSTEM "%rfc2629ja.sysid.base;notation.mod"'>
+<!ENTITY % rfc2629ja.notation.mod %rfc2629ja.notation.decl;>
+%rfc2629ja.notation.mod;]]>
+]]>
+
+<!-- QName module -->
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.qname.module "INCLUDE">
+<![%rfc2629ja.qname.module;[
+<!ENTITY % rfc2629ja.qname.decl 'SYSTEM "%rfc2629ja.sysid.base;qname.mod"'>
+<!ENTITY % rfc2629ja.qname.mod %rfc2629ja.qname.decl;>
+%rfc2629ja.qname.mod;]]>
+]]>
+
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.qname.module "INCLUDE">
+<![%rfc2629.qname.module;[
+<!ENTITY % rfc2629.qname.decl 'SYSTEM "%rfc2629.sysid.base;qname.mod"'>
+<!ENTITY % rfc2629.qname.mod %rfc2629.qname.decl;>
+%rfc2629.qname.mod;]]>
+]]>
+
+<!-- Common attributes module -->
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.attribs.module "INCLUDE">
+<![%rfc2629ja.attribs.module;[
+<!ENTITY % rfc2629ja.attribs.decl 'SYSTEM "%rfc2629ja.sysid.base;attribs.mod"'>
+<!ENTITY % rfc2629ja.attribs.mod %rfc2629ja.attribs.decl;>
+%rfc2629ja.attribs.mod;]]>
+]]>
+
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.attribs.module "INCLUDE">
+<![%rfc2629.attribs.module;[
+<!ENTITY % rfc2629.attribs.decl 'SYSTEM "%rfc2629.sysid.base;attribs.mod"'>
+<!ENTITY % rfc2629.attribs.mod %rfc2629.attribs.decl;>
+%rfc2629.attribs.mod;]]>
+]]>
+
+<!-- Document Model module -->
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.model.decl 'SYSTEM "%rfc2629ja.sysid.base;model.mod"'>
+<!ENTITY % rfc2629ja.model.mod %rfc2629ja.model.decl;>
+%rfc2629ja.model.mod;
+]]>
+
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.model.decl 'SYSTEM "%rfc2629.sysid.base;model.mod"'>
+<!ENTITY % rfc2629.model.mod %rfc2629.model.decl;>
+%rfc2629.model.mod;
+]]>
+
+<!-- Block structural module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.blkstruct.module "INCLUDE">
+<![%rfc2629.blkstruct.module;[
+<!ENTITY % rfc2629.blkstruct.decl 'SYSTEM "%rfc2629.sysid.base;blkstruct.mod"'>
+<!ENTITY % rfc2629.blkstruct.mod %rfc2629.blkstruct.decl;>
+%rfc2629.blkstruct.mod;]]>
+]]>
+
+<!-- Figure module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.figure.module "INCLUDE">
+<![%rfc2629.figure.module;[
+<!ENTITY % rfc2629.figure.decl 'SYSTEM "%rfc2629.sysid.base;figure.mod"'>
+<!ENTITY % rfc2629.figure.mod %rfc2629.figure.decl;>
+%rfc2629.figure.mod;]]>
+]]>
+
+<!-- Meta information module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.metainformation.module "INCLUDE">
+<![%rfc2629.metainformation.module;[
+<!ENTITY % rfc2629.metainformation.decl
+      'SYSTEM "%rfc2629.sysid.base;metainformation.mod"'>
+<!ENTITY % rfc2629.metainformation.mod %rfc2629.metainformation.decl;>
+%rfc2629.metainformation.mod;]]>
+]]>
+
+<!-- Translation Meta information module -->
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.metainformation.module "INCLUDE">
+<![%rfc2629ja.metainformation.module;[
+<!ENTITY % rfc2629ja.metainformation.decl
+      'SYSTEM "%rfc2629ja.sysid.base;metainformation.mod"'>
+<!ENTITY % rfc2629ja.metainformation.mod %rfc2629ja.metainformation.decl;>
+%rfc2629ja.metainformation.mod;]]>
+]]>
+
+<!-- Reference and hyperlink module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.reference.module "INCLUDE">
+<![%rfc2629.reference.module;[
+<!ENTITY % rfc2629.reference.decl 'SYSTEM "%rfc2629.sysid.base;reference.mod"'>
+<!ENTITY % rfc2629.reference.mod %rfc2629.reference.decl;>
+%rfc2629.reference.mod;]]>
+]]>
+
+<!-- Document structure module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.struct.module "INCLUDE">
+<![%rfc2629.struct.module;[
+<!ENTITY % rfc2629.struct.decl 'SYSTEM "%rfc2629.sysid.base;struct.mod"'>
+<!ENTITY % rfc2629.struct.mod %rfc2629.struct.decl;>
+%rfc2629.struct.mod;]]>
+]]>
+
+<!-- Translation structure module -->
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.translation.module "INCLUDE">
+<![%rfc2629ja.translation.module;[
+<!ENTITY % rfc2629ja.translation.decl
+        'SYSTEM "%rfc2629ja.sysid.base;translation.mod"'>
+<!ENTITY % rfc2629ja.translation.mod %rfc2629ja.translation.decl;>
+%rfc2629ja.translation.mod;]]>
+]]>
+
+
+<!-- General entity "rfc.number" -->
+<!-- If you use this entity, you should define this entity
+     in the internal subset of DOCTYPE declaration in your RFC document. -->
+<!ENTITY rfc.number "XXXX">
+
+<!-- end of rfc.dtd -->
