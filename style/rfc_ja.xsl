@@ -6,7 +6,7 @@
   xmlns:ja="http://suika.fam.cx/~wakaba/lang/rfc/translation/"
   xmlns:ed="http://greenbytes.de/2002/rfcedit"
   xmlns:myns="mailto:julian.reschke@greenbytes.de?subject=rcf2629.xslt"
-  exclude-result-prefixes="ed h ja myns"
+  exclude-result-prefixes="ed ja myns"
   version="1.0">
 
   <s:output encoding="iso-2022-jp" indent="yes"
@@ -21,20 +21,22 @@
   <s:param name="uri-fyi-prefix" select="'http://suika.fam.cx/uri-res/N2L?urn:ietf:fyi:'" />
   <s:param name="uri-stylesheet-css" select="'http://suika.fam.cx/~wakaba/lang/rfc/translation/rfc-ja-style.css'" />
   
-  <!-- <?rfc toc="yes/no"?> -->
+  <!-- <?rfc toc="yes/no"?> (default no) -->
   <s:param name="include-toc" select="substring-after(translate(/processing-instruction('rfc')[contains(.,'toc=')], '&quot; ', ''),'toc=')" />
-  <!-- <?rfc symrefs="yes/no"?> -->
+  <!-- <?rfc symrefs="yes/no"?> (default no) -->
   <s:param name="use-symbolic-reference" select="substring-after(translate(/processing-instruction('rfc')[contains(.,'symrefs=')], '&quot; ', ''),'symrefs=')" />
   <!-- <?rfc private=" '' or type (display) name "?> -->
   <s:param name="type-private-paper" select="substring-after(translate(/processing-instruction('rfc')[contains(.,'private=')], '&quot; ', ''),'private=')" />
   
-  <!-- <?rfc-translation show-rfc-copyright="yes/no"?> -->
+  <!-- <?rfc-translation show-rfc-header-category="yes/no"?> (default yes) -->
+  <s:param name="show-rfc-header-category" select="substring-after(translate(/processing-instruction('rfc-translation')[contains(.,'show-rfc-header-category=')], '&quot; ', ''),'show-rfc-header-category=')" />
+  <!-- <?rfc-translation show-rfc-copyright="yes/no"?> (default yes if > rfc2660) -->
   <s:param name="show-rfc-copyright" select="substring-after(translate(/processing-instruction('rfc-translation')[contains(.,'show-rfc-copyright=')], '&quot; ', ''),'show-rfc-copyright=')" />
-  <!-- <?rfc-translation show-rfc-status="yes/no"?> -->
+  <!-- <?rfc-translation show-rfc-status="yes/no"?> (default yes) -->
   <s:param name="show-rfc-status" select="substring-after(translate(/processing-instruction('rfc-translation')[contains(.,'show-rfc-status=')], '&quot; ', ''),'show-rfc-status=')" />
-  <!-- <?rfc-translation show-rfc-acknowledgement-editor="yes/no"?> -->
+  <!-- <?rfc-translation show-rfc-acknowledgement-editor="yes/no"?> (default yes if > rfc xxxx) -->
   <s:param name="show-rfc-acknowledgement-editor" select="substring-after(translate(/processing-instruction('rfc-translation')[contains(.,'show-rfc-acknowledgement-editor=')], '&quot; ', ''),'show-rfc-acknowledgement-editor=')" />
-  <!-- <?rfc-translation output-http-equiv="yes/no"?> -->
+  <!-- <?rfc-translation output-http-equiv="yes/no"?> (default no) -->
   <s:param name="output-http-equiv" select="substring-after(translate(/processing-instruction('rfc-translation')[contains(.,'output-http-equiv=')], '&quot; ', ''),'output-http-equiv=')" />
   
 <s:template match="/">
@@ -73,6 +75,9 @@
       </s:if>
       <s:if test="ja:front/keyword">
         <meta name="keyword"><s:attribute name="content"><s:for-each select="ja:front/keyword"><s:value-of select="concat(text(),', ')" /></s:for-each></s:attribute></meta>
+      </s:if>
+      <s:if test="ja:front/h:style">
+        <s:apply-templates select="ja:front/h:style" />
       </s:if>
     </head>
     <body>
@@ -134,8 +139,10 @@
           <s:with-param name="list" select="normalize-space(/rfc/@updates)" />
         </s:call-template></li>
       </s:if>
-      <li><span class="t-pair"><span xml:lang="en" class="t-l-en">Category: <s:call-template name="category-name" /></span></span></li>
-      <li><span class="t-pair"><span xml:lang="ja" class="t-l-ja">分類: <s:call-template name="category-name-ja" /></span></span></li>
+      <s:if test="$show-rfc-header-category != 'no'">
+        <li><span class="t-pair"><span xml:lang="en" class="t-l-en">Category: <s:call-template name="category-name" /></span></span></li>
+        <li><span class="t-pair"><span xml:lang="ja" class="t-l-ja">分類: <s:call-template name="category-name-ja" /></span></span></li>
+      </s:if>
       <s:if test="/rfc/@ipr">
         <li><span class="t-pair"><span xml:lang="en" class="t-l-en">Expires: <s:call-template name="expiry-date" /></span></span></li>
         <li><span class="t-pair"><span xml:lang="ja" class="t-l-ja">有効期限: <s:call-template name="expiry-date-ja" /></span></span></li>
@@ -651,7 +658,15 @@
     <s:if test="string-length($paragraph-number) &gt; 0">
       <s:attribute name="id">rfc.section.<s:value-of select="$paragraph-number" /></s:attribute>
     </s:if>
-    <s:apply-templates />
+    <s:choose>
+    <s:when test="text() = 'Security issues are not discussed in this memo.'">
+      <div class="t-pair">
+        <p xml:lang="en" class="t-l-en">Security issues are not discussed in this memo.</p>
+        <p xml:lang="ja" class="t-l-ja">安全性問題はこのメモでは取り扱っていません。</p>
+      </div>
+    </s:when>
+    <s:otherwise><s:apply-templates /></s:otherwise>
+    </s:choose>
   </s:element>
 </s:template>
 
@@ -672,7 +687,12 @@
 </s:template>
 
 <s:template match="list[@style='hanging']/t">
-  <dt><s:value-of select="@hangText" /></dt>
+  <s:choose>
+  <s:when test="@ja:anchor">
+    <dt id="{@ja:anchor}"><a href="#{@ja:anchor}" class="self"><s:value-of select="@hangText" /></a></dt>
+  </s:when>
+  <s:otherwise><dt><s:value-of select="@hangText" /></dt></s:otherwise>
+  </s:choose>
   <dd><s:apply-templates /></dd>
 </s:template>
 
@@ -736,6 +756,34 @@
 
 <s:template match="artwork">
   <pre class="rfc-artwork" xml:space="preserve"><s:value-of select="text()" /></pre>
+</s:template>
+<!-- artwork with XML structure -->
+<s:template match="ja:artwork">
+  <div class="rfc-t-artwork"><s:apply-templates select="*[not(name()='artwork')]" /></div>
+</s:template>
+
+<s:template match="ja:example">
+  <div class="t-example">
+    <s:if test="not(@no-title)">
+      <div class="t-title t-pair">
+        <div class="t-l-en" xml:lang="en"><s:choose>
+          <s:when test="@title"><s:value-of select="@title" /></s:when>
+          <s:otherwise>Example: </s:otherwise>
+        </s:choose></div>
+        <div class="t-l-ja" xml:lang="ja"><s:choose>
+          <s:when test="@title"><s:value-of select="@title-ja" /></s:when>
+          <s:otherwise>例: </s:otherwise>
+        </s:choose></div>
+      </div>
+    </s:if>
+    
+    <s:choose>
+    <s:when test="@xml:space = 'preserve'">
+      <pre xml:space="preserve"><s:value-of select="text()" /></pre>
+    </s:when>
+    <s:otherwise><div><s:apply-templates /></div></s:otherwise>
+    </s:choose>
+  </div>
 </s:template>
 
 <s:template match="ja:pair">
@@ -811,16 +859,37 @@
   <br class="rfc-vspace" /><span class="rfc-vspace" style="display: block; visibility: hidden; margin-bottom: {@blankLines - 2}em">&#xA0;</span>
 </s:template>
 
+<s:template match="ja:insert[@section='references']">
+  <s:apply-templates select="/rfc//back/references" />
+</s:template>
+<s:template match="ja:insert[@section='author-address']">
+  <s:call-template name="back-author-address" />
+</s:template>
+<s:template match="ja:insert[@section='copyright-full']">
+  <s:call-template name="back-copyright" />
+</s:template>
+<s:template match="ja:insert[@section='acknowledgement-editor']">
+  <s:call-template name="back-acknowledgement-editor" />
+</s:template>
+
 <!-- back -->
 <s:template match="back">
-  <s:apply-templates select="references" />
-  <s:call-template name="back-author-address" />
+  <s:if test="not(//ja:insert[@section='references'])">
+    <s:apply-templates select="references" />
+  </s:if>
+  <s:if test="not(//ja:insert[@section='author-address'])">
+    <s:call-template name="back-author-address" />
+  </s:if>
   <s:apply-templates select="*[not(self::references)]" />
   <!--<s:if test="//iref">
     <s:call-template name="back-index" />
   </s:if>-->
-  <s:call-template name="back-copyright" />
-  <s:call-template name="back-acknowledgement-editor" />
+  <s:if test="not(//ja:insert[@section='full-copyright'])">
+    <s:call-template name="back-copyright" />
+  </s:if>
+  <s:if test="not(//ja:insert[@section='acknowledgement-editor'])">
+    <s:call-template name="back-acknowledgement-editor" />
+  </s:if>
 </s:template>
 
 <s:template name="back-author-address">
@@ -999,6 +1068,7 @@
   <a>
     <s:attribute name="href"><s:value-of select="$uri-rfc-prefix" /><s:value-of select="@number" /></s:attribute>
     <s:attribute name="title">RFC <s:value-of select="@number" /></s:attribute>
+    <s:if test="not(node())">RFC <s:value-of select="@number" /></s:if>
     <s:apply-templates />
   </a>
 </s:template>
@@ -1006,6 +1076,7 @@
   <a>
     <s:attribute name="href"><s:value-of select="$uri-std-prefix" /><s:value-of select="@number" /></s:attribute>
     <s:attribute name="title">STD <s:value-of select="@number" /></s:attribute>
+    <s:if test="not(node())">STD <s:value-of select="@number" /></s:if>
     <s:apply-templates />
   </a>
 </s:template>
@@ -1025,6 +1096,21 @@
   </s:for-each>「<s:apply-templates />」</samp>
 </s:template>
 
+<!-- 言語情報から引用符を分けるのは厳密には正しくありません
+     (用字系もチェックしないといけません (日本語羅馬字とか
+     ありますから。)) が、それはかなりしんどいので、
+     近似ということで・・・ -->
+<s:template match="h:q">
+  <q><s:for-each select="@*">
+      <s:attribute name="{name()}"><s:value-of select="." /></s:attribute>
+  </s:for-each>“<s:apply-templates />”</q>
+</s:template>
+<s:template match="ja:l[@xml:lang = 'ja']//h:q|ja:front//h:q|ja:back//h:q">
+  <q><s:for-each select="@*">
+      <s:attribute name="{name()}"><s:value-of select="." /></s:attribute>
+  </s:for-each>「<s:apply-templates />」</q>
+</s:template>
+
 <s:template match="abstract">
   <div class="rfc-section" id="rfc.abstract">
     <div class="t-pair t-heading">
@@ -1040,13 +1126,22 @@
   <s:if test="@fullname"><li class="rfc-author-fullname"><s:value-of select="@fullname" /></li></s:if>
   <s:if test="organization"><li class="rfc-organization"><s:value-of select="organization" /></li> </s:if>
   <s:for-each select="(address/postal/street|address/postal/city|address/postal/region|address/postal/code|address/postal/country)">
-    <li class="rfc-{local-name()}"><s:value-of select="." /></li>
+    <li class="rfc-{local-name()}"><s:choose>
+      <s:when test="@ja:text"><s:value-of select="@ja:text" /></s:when>
+      <s:otherwise><s:value-of select="." /></s:otherwise>
+    </s:choose></li>
   </s:for-each>
   <s:if test="address/phone">
-    <li class="rfc-phone">電話: <s:value-of select="address/phone" /></li>
+    <li class="rfc-phone">電話: <s:choose>
+      <s:when test="address/phone/@ja:text"><s:value-of select="address/phone/@ja:text" /></s:when>
+      <s:otherwise><s:value-of select="address/phone" /></s:otherwise>
+    </s:choose></li>
   </s:if>
   <s:if test="address/facsimile">
-    <li class="rfc-facsimile">FAX: <s:value-of select="address/facsimile" /></li>
+    <li class="rfc-facsimile">FAX: <s:choose>
+      <s:when test="address/facsimile/@ja:text"><s:value-of select="address/facsimile/@ja:text" /></s:when>
+      <s:otherwise><s:value-of select="address/facsimile" /></s:otherwise>
+    </s:choose></li>
   </s:if>
   <s:if test="address/email">
     <li class="rfc-email">電子メイル: &lt;<a href="mailto:{address/email}"><s:value-of select="address/email" /></a>&gt;</li>
@@ -1088,13 +1183,14 @@
     </s:choose>
     <s:if test="front/ja:title[@xml:lang='ja']">
       <span class="t-pair"><span xml:lang="ja" class="t-l-ja"><s:choose>
-      <s:when test="@ja:target-ja">, 『<cite><a href="{@ja:target-ja}" title="URI: &lt;{@ja:target-ja}&gt;"><s:value-of select="front/title[@xml:lang='ja']" /></a></cite>』</s:when>
-    <s:otherwise>, 『<cite><s:value-of select="front/title[@xml:lang='ja']" /></cite>』</s:otherwise>
+      <s:when test="@ja:target-ja">, 『<cite><a href="{@ja:target-ja}" title="URI: &lt;{@ja:target-ja}&gt;"><s:value-of select="front/ja:title[@xml:lang='ja']" /></a></cite>』</s:when>
+    <s:otherwise>, 『<cite><s:value-of select="front/ja:title[@xml:lang='ja']" /></cite>』</s:otherwise>
       </s:choose></span></span>
     </s:if>
     
     <s:for-each select="front/author">
       <s:choose>
+      <s:when test="@ja:text">, <s:value-of select="@ja:text" /></s:when>
       <s:when test="@surname and @fullname">, <span title="@fullname"><s:value-of select="concat(@surname,', ',@initials)" /></span></s:when>
       <s:when test="@surname">, <s:value-of select="concat(@surname,', ',@initials)" /></s:when>
       <s:when test="@fullname">, <s:value-of select="@fullname" /></s:when>
@@ -1109,7 +1205,9 @@
       </s:choose>
     </s:for-each>
     
-    , <span class="t-pair"><span xml:lang="en" class="t-l-en">
+    <s:choose>
+    <s:when test="@year">, 
+      <span class="t-pair"><span xml:lang="en" class="t-l-en">
       <s:value-of select="front/date/@day" />
       &#xA0;<s:value-of select="front/date/@month" />&#xA0;
       <s:value-of select="front/date/@year" />.
@@ -1117,7 +1215,9 @@
       <s:value-of select="front/date/@year" />年<s:call-template name="month-ja">
         <s:with-param name="month" select="front/date/@month" />
       </s:call-template><s:if test="front/date/@day"><s:value-of select="front/date/@day" />日</s:if>。
-    </span></span>
+    </span></span></s:when>
+    <s:otherwise>。</s:otherwise>
+    </s:choose>
     
     <s:if test="@ja:additional-information">
       <s:apply-templates />
@@ -1178,7 +1278,7 @@
 
 <s:template match="xref">
   <s:variable name="target" select="@target" />
-  <s:variable name="node" select="//*[@anchor=$target]" />
+  <s:variable name="node" select="//*[@anchor=$target or @ja:anchor=$target]" />
   
   <span class="rfc-xref">
     <a href="#{$target}"><s:choose>
@@ -1195,6 +1295,7 @@
       <s:for-each select="$node">
         <s:number level="any" count="figure[@title!='' or @anchor!='']" />
       </s:for-each></s:when>
+      <s:when test="$node/@hangText"><s:value-of select="$node/@hangText" /></s:when>
       <s:otherwise>
         <s:attribute name="title"><s:value-of select="normalize-space($node/front/title)" /></s:attribute>
         <s:call-template name="reference-name">
@@ -1206,11 +1307,11 @@
 </s:template>
 <s:template match="ja:l[@xml:lang = 'ja']//xref|ja:front//xref|ja:back//xref">
   <s:variable name="target" select="@target" />
-  <s:variable name="node" select="//*[@anchor=$target]" />
+  <s:variable name="node" select="//*[@anchor=$target or @ja:anchor=$target]" />
   
   <a href="#{$target}"><s:choose>
     <s:when test="node()"><s:attribute name="title"><s:choose>
-      <s:when test="$node/front/ja:title-ja"><s:value-of select="$node/front/ja:title-ja" /></s:when>
+      <s:when test="$node/front/ja:title[@xml:lang='ja']"><s:value-of select="$node/front/ja:title[@xml:lang='ja']" /></s:when>
       <s:otherwise><s:value-of select="$node/front/title" /></s:otherwise>
       </s:choose></s:attribute><s:apply-templates />
         <s:if test="/rfc/back/references/reference[@anchor=$target]">
@@ -1233,9 +1334,11 @@
     <s:when test="local-name($node)='figure'">図<s:for-each select="$node">
       <s:number level="any" count="figure[@title!='' or @anchor!='']" />
     </s:for-each></s:when>
+    <s:when test="$node/@ja:hangText-ja"><s:value-of select="$node/@ja:hangText-ja" /></s:when>
+    <s:when test="$node/@hangText"><s:value-of select="$node/@hangText" /></s:when>
     <s:otherwise>
       <s:choose>
-      <s:when test="$node/front/ja:title-ja"><s:attribute name="title"><s:value-of select="$node/front/ja:title-ja" /></s:attribute></s:when>
+      <s:when test="$node/front/ja:title[@xml:lang='ja']"><s:attribute name="title"><s:value-of select="$node/front/ja:title[@xml:lang='ja']" /></s:attribute></s:when>
       <s:otherwise><s:attribute name="title"><s:value-of select="$node/front/title" /></s:attribute></s:otherwise>
       </s:choose>
       <s:call-template name="reference-name">
@@ -1264,8 +1367,18 @@
       <h1>訳文についての著作権声明</h1>
       <s:apply-templates select="/rfc/ja:front/ja:copyright" />
       
-      <p><a href="#rfc-copyright">原文の著作権声明</a>が、訳文についても同様に適用されます。</p>
-      <p>また、改訳その他の原文の著作権声明に反しない範囲における改変は、一切の許可無く行って構いません。</p>
+      <s:choose>
+      <s:when test="/rfc/ja:front/ja:copyright/ja:full-statement"></s:when>
+      <s:when test="/rfc/@ipr = 'none'"></s:when>
+      <s:when test="/rfc/@number &lt; 2220">
+        <p>この翻訳文は、自由に複製・配布・改変して構いません。
+        (rfc-copyright-story も参照して下さい。)</p>
+      </s:when>
+      <s:when test="$show-rfc-copyright != 'no'">
+        <p><a href="#rfc-copyright">原文の著作権声明</a>が、訳文についても同様に適用されます。</p>
+        <p>また、改訳その他の原文の著作権声明に反しない範囲における改変は、一切の許可無く行って構いません。</p>
+      </s:when>
+      </s:choose>
     </div>
   </ins>
 </s:template>
@@ -1333,7 +1446,7 @@
 </s:stylesheet>
 <!-- rfc-ja.xsl *** RFC 2629 + 日本語訳 XML 形式 → HTML 4.01
                     XSLT スタイルシート
-                $Date: 2002/05/03 07:41:31 $
+                $Date: 2002/05/08 14:44:39 $
 -->
 <!-- 謝辞
        この XSLT は、 xml2rfc 1.12 package の rfc2629.xslt から
