@@ -1,3 +1,9 @@
+2002-07-25  Wakaba <w@suika.fam.cx>
+
+	* rfc_ja.xsl:
+	- (ja:mail, ja:word, ja:definition): New elements.
+	- Yes, I know XSLT is not a schemer:-)
+
 2002-05-09  wakaba <w@suika.fam.cx>
 
 	* rfc_ja.xsl (address/postal/*/@ja:show): New supported
