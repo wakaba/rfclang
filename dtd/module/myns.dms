@@ -14,7 +14,23 @@ ModuleSet:
     @@UsePrefix: 1
   
   @Copyright: Wakaba <w@suika.fam.cx>
-  @RCSDate: $Date: 2003/10/23 23:25:33 $
+  @RCSDate: $Date: 2003/10/30 07:06:48 $
+  
+Notation:
+  @Notation:
+    @@Name:
+       :rfc
+    @@SYSTEM:
+      urn:x-suika-fam-cx:markup:ietf:rfc:2629:pi
+    @@Description: <?rfc?> processing instruction
+  
+Notation:
+  @Notation:
+    @@Name:
+       :rfc-ext
+    @@SYSTEM:
+      urn:x-suika-fam-cx:markup:ietf:rfc:2629:pi-ext
+    @@Description: <?rfc-ext?> processing instruction
 
 Datatype:
   @Type:
@@ -35,3 +51,9 @@ Module:
         @@@@Name: unnumbered
         @@@@Type: yesno
       @@Description: No numbering for the section
+  
+  @Element:
+    @@Name: item
+    @@Content: "ANY"
+    @@Description: Used in XSLT stylesheet.
+    @@Default:-1

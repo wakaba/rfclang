@@ -14,7 +14,7 @@ ModuleSet:
     @@UsePrefix: -1
   
   @Copyright: Wakaba <w@suika.fam.cx>
-  @RCSDate: $Date: 2003/10/23 23:25:33 $
+  @RCSDate: $Date: 2003/10/30 07:06:48 $
 
 Datatype:
   @Type:
@@ -66,16 +66,17 @@ Datatype:
     @@Description: should be a two-letter code from ISO 3166
   
   @Type:
+    @@Name: list-style
+    @@XMLType: (numbers|symbols|hanging|empty)
+  
+  @Type:
+    @@Name: series-name
+    @@XMLType: CDATA
+    @@Description: 'RFC' / ...
+  
+  @Type:
     @@Name: truefalse
     @@XMLType: (true|false)
-  
-Notation:
-  @Notation:
-    @@Name:
-       :rfc
-    @@SYSTEM:
-      urn:x-suika-fam-cx:markup:ietf:rfc:2629:pi
-    @@Description: <?rfc?> processing instruction
 
 Attribute:
   @Attribute:
@@ -84,6 +85,7 @@ Attribute:
     @@Attribute:
       @@@Name: "anchor"
       @@@Type: "ID"
+      @@@Description: Cross-referencing with the xref element
   
   @Attribute:
     @@Name: abbrev
@@ -91,6 +93,22 @@ Attribute:
     @@Attribute:
       @@@Name: "abbrev"
       @@@Type: ATEXT
+  
+  @Attribute:
+    @@Name: section-title
+    
+    @@Attribute:
+      @@@Name: "title"
+      @@@Type: ATEXT
+      @@@Default: #REQUIRED
+  
+  @Attribute:
+    @@Name: target-uri
+    
+    @@Attribute:
+      @@@Name: "target"
+      @@@Type:
+       :URI
 
 Module:
   @Name: Block Structual
@@ -103,10 +121,9 @@ Module:
     
     @@Attribute:
       @@@ref: anchor
-      @@@Attribute:
-        @@@@Name: "title"
-        @@@@Type: ATEXT
-        @@@@Default: #REQUIRED
+      @@@ref: section-title
+    @@Description:
+      A section of the document
   
   @Element:
     @@Name: t
@@ -114,10 +131,10 @@ Module:
       (
         $TEXT.datatype
       | $list
-      | $figure
       | $:Inline.mix
       | vspace
         $blockcontent
+        $t-figure
       )*
     
     @@Attribute:
@@ -134,6 +151,8 @@ Module:
         @@@@Name: "blankLines"
         @@@@Type: NUMBER
         @@@@Default: "0"
+        @@@@Description:
+          A physical linebreak is specified by "0".
   
   @Element:
     @@Name: abstract
@@ -148,6 +167,8 @@ Module:
         @@@@Name: "title"
         @@@@Type: ATEXT
         @@@@Default: #REQUIRED
+    @@Description:
+      In general, the note element contains text from the IESG
   
   @Element:
     @@Name: list
@@ -156,8 +177,11 @@ Module:
     @@Attribute:
       @@@Attribute: 
         @@@@Name: "style"
-        @@@@Type: ATEXT
-        @@@@Default: "empty"
+        @@@@Type: list-style
+#        @@@@Default: "empty"
+        @@@@Description:
+          Default value is inherited from parent list, if any, or "empty".
+          (DTD shown in RFC 2629 is incorrect.)
 
 Module:
   @Name: Figure
@@ -205,14 +229,7 @@ Module:
           "xml:space"
         @@@@Type: "(default|preserve)"
         @@@@Default: "preserve"
-      @@@Attribute:
-        @@@@Name: "name"
-        @@@@Type: ATEXT
-        @@@@Default: ""
-      @@@Attribute:
-        @@@@Name: "type"
-        @@@@Type: ATEXT
-        @@@@Default: ""
+    @@Description: Contains "ASCII artwork"
 
 Module:
   @Name: Metainformational
@@ -223,6 +240,10 @@ Module:
     @@Content: $metaterm.content
     @@Attribute:
       @@@ref: abbrev
+    @@Description:
+      The title of the document
+      \
+      abbrev should also be provided if the title is more than 42 characters
   
   @Element:
     @@Name: author
@@ -241,6 +262,11 @@ Module:
       @@@Attribute:
         @@@@Name: "fullname"
         @@@@Type: ATEXT
+    @@Description:
+      A document author
+      \
+      Attributes initials, surname and fullname must be present 
+      if the author is a person
   
   @Element:
     @@Name: organization
@@ -272,7 +298,7 @@ Module:
        )*
       )
     @@Description:
-      at most one of each the city, region, code, and country
+      At most one of each the city, region, code, and country
       elements may be present
   
   @Element:
@@ -284,12 +310,16 @@ Module:
   @Element:
     @@Name: region
     @@Content: $metaterm.content
+    @@Description: State or province
   @Element:
     @@Name: code
     @@Content: $metaterm.content
+    @@Description: Zipcode or postal code
   @Element:
     @@Name: country
     @@Content: ($country.datatype)
+    @@Description:
+      The value should be a two-letter code from ISO 3166
   
   @Element:
     @@Name: phone
@@ -319,17 +349,26 @@ Module:
         @@@@Name: "year"
         @@@@Type: YEAR
         @@@@Default: #REQUIRED
+    @@Description:
+      The publication date of the document
   
   @Element:
     @@Name: area
     @@Content: $metaterm.content
+    @@Description:
+      A general category for the document (e.g., one of "Applications",
+      "General", "Internet", "Management", "Operations", "Routing",
+      "Security", "Transport", or "User")
   @Element:
     @@Name: workgroup
     @@Content: $metaterm.content
+    @@Description:
+      The IETF working groups that produced the document
   
   @Element:
     @@Name: keyword
     @@Content: $metaterm.content
+    @@Description: Useful search terms
   
   @Element:
     @@Name: seriesInfo
@@ -337,12 +376,14 @@ Module:
     @@Attribute:
       @@@Attribute:
         @@@@Name: "name"
-        @@@@Type: ATEXT
+        @@@@Type: series-name
         @@@@Default: #REQUIRED
+        @@@@Description: The document series
       @@@Attribute:
         @@@@Name: "value"
         @@@@Type: ATEXT
         @@@@Default: #REQUIRED
+        @@@@Description: Series entry
   
 Module:
   @Name: Reference
@@ -351,11 +392,8 @@ Module:
   @Element:
     @@Name: references
     @@Content: (reference+)
-    @@Attribute:
-      @@@Attribute:
-        @@@@Name: "abbrev"
-        @@@@Type: ATEXT
-        @@@@Default: "References"
+    @@Description:
+      The document's bibliography
   
   @Element:
     @@Name: reference
@@ -366,10 +404,7 @@ Module:
       )
     @@Attribute:
       @@@ref: anchor
-      @@@Attribute:
-        @@@@Name: "target"
-        @@@@Type:
-          :URI
+      @@@ref: target-uri
   
   @Element:
     @@Name: xref
@@ -383,6 +418,7 @@ Module:
         @@@@Name: "pageno"
         @@@@Type: truefalse
         @@@@Default: "false"
+    @@Description: Cross-reference sections, figures, tables, and references
   @Element:
     @@Name: eref
     @@Content: ($CTEXT.datatype)*
@@ -392,6 +428,7 @@ Module:
         @@@@Type:
           :URI
         @@@@Default: #REQUIRED
+    @@Description: Reference external documents
   
   @Element:
     @@Name: iref
@@ -401,14 +438,13 @@ Module:
         @@@@Name: "item"
         @@@@Type: ATEXT
         @@@@Default: #REQUIRED
+        @@@@Description: The primary key the information is stored under
       @@@Attribute:
         @@@@Name: "subitem"
         @@@@Type: ATEXT
         @@@@Default: ""
-      @@@Attribute:
-        @@@@Name: "primary"
-        @@@@Type: truefalse
-        @@@@Default: "false"
+        @@@@Description: The secondary key
+    @@Description: Indexing of text
 
 Module:
   @ID: struct
@@ -446,6 +482,8 @@ Module:
       @@@Attribute:
         @@@@Name: "docName"
         @@@@Type: ATEXT
+        @@@@Description:
+          The document (not file) name associated with this Internet-Draft
   
   @Element:
     @@Name: front

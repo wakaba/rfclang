@@ -11,7 +11,7 @@ DocumentType:
     @@UsePrefix: 0
   
   @Copyright: Wakaba <w@suika.fam.cx>
-  @RCSDate: $Date: 2003/10/23 23:25:33 $
+  @RCSDate: $Date: 2003/10/30 07:06:48 $
 
 Driver:
   @ModuleSet:
@@ -76,6 +76,14 @@ Model:
   @Class:
     @@Name: figure
     @@Content: figure
+  
+  @Class:
+    @@Name: t-figure
+    @@Content: | $figure
+    @@Description:
+      RFC 2629-bis says that although RFC 2629 allows the figure element to
+      be nested within the t element, authors are strongly encouraged to
+      avoid this usage.
   
   @Class:
     @@Name: hyperlink

@@ -1,0 +1,189 @@
+#?SuikaWikiConfig/2.0
+
+ModuleSet:
+  @Name: Markup Language for IETF RFC
+  @Version:
+    Additional vocabularies used in rfc2629.xslt : 'ed'
+  @ID: myns
+  @BaseURI:
+    http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/module/
+  
+  @Namespace:
+    @@Name:
+      http://greenbytes.de/2002/rfcedit
+    @@DefaultPrefix: ed
+    @@UsePrefix: 1
+  
+  @Copyright: Wakaba <w@suika.fam.cx>
+  @RCSDate: $Date: 2003/10/30 07:06:48 $
+  
+Datatype:
+  @Type:
+    @@Name: addr-spec
+    @@XMLType: CDATA
+    @@Description: An Internet mail address
+  
+  @Type:
+    @@Name:
+      :LinkTypes
+    @@XMLType: CDATA
+    @@Description: Link type list (See HTML 4)
+  
+  @Type:
+    @@Name:
+      :URI
+    @@XMLType: CDATA
+    @@Description: A URI Reference
+  
+Attribute:
+  @AttributeSet:
+    @@Name: formatTitle
+    @@Attribute:
+      @@@Name: "who"
+      @@@Type: "CDATA"
+    @@Attribute:
+      @@@Name: "datetime"
+      @@@Type: "CDATA"
+    @@Attribute:
+      @@@Name: "reason"
+      @@@Type: "CDATA"
+    @@Attribute:
+      @@@Name: "cite"
+      @@@Type: "CDATA"
+  
+Module:
+  @Name: Figure
+  @ID:figure
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    @@Attribute:
+      @@@Name: artwork.parse-xml-after
+      @@@ElementType: 
+        rfc2629:artwork
+      @@@Attribute:
+        @@@@Name: parse-xml-after
+        @@@@Type: CDATA
+
+Module:
+  @Name: Hyperlink
+  @ID:hyperlink
+  
+  @Element:
+    @@Name: link
+    @@Content: "EMPTY"
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "href"
+        @@@@Type:
+          :URI
+        @@@@Default: #REQUIRED
+      @@@Attribute:
+        @@@@Name: "rel"
+        @@@@Type:
+          :LinkTypes
+      @@@Attribute:
+        @@@@Name: "title"
+        @@@@Type: "CDATA"
+    @@Description:
+      = XHTML1:link
+
+Module:
+  @Name: Edit
+  @ID:edit
+  
+  @Element:
+    @@Name: del
+    @@Content: "ANY"
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: entered-by
+        @@@@Type: "CDATA"
+      @@@Attribute:
+        @@@@Name: "date-time"
+        @@@@Type: "CDATA"
+      @@@Attribute:
+        @@@@Name: "title"
+        @@@@Type: "CDATA"
+  
+  @Element:
+    @@Name: ins
+    @@Content: "ANY"
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: entered-by
+        @@@@Type: "CDATA"
+      @@@Attribute:
+        @@@@Name: "date-time"
+        @@@@Type: "CDATA"
+      @@@Attribute:
+        @@@@Name: resolves
+        @@@@Type: "CDATA"
+      @@@Attribute:
+        @@@@Name: "title"
+        @@@@Type: "CDATA"
+  
+  @Element:
+    @@Name: replace
+    @@Content: "ANY"
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: entered-by
+        @@@@Type: "CDATA"
+      @@@Attribute:
+        @@@@Name: "date-time"
+        @@@@Type: "CDATA"
+      @@@Attribute:
+        @@@@Name: resolves
+        @@@@Type: "CDATA"
+      @@@Attribute:
+        @@@@Name: "title"
+        @@@@Type: "CDATA"
+  
+  @Element:
+    @@Name: issue
+    @@Content: (item*)
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "href"
+        @@@@Type:
+          :URI
+      @@@Attribute:
+        @@@@Name: "name"
+        @@@@Type: "CDATA"
+        @@@@Default:#REQUIRED
+      @@@Attribute:
+        @@@@Name: "status"
+        @@@@Type: "CDATA"
+        @@@@Default:#REQUIRED
+        @@@@Description: 'closed' / ...
+      @@@Attribute:
+        @@@@Name: "type"
+        @@@@Type: "CDATA"
+        @@@@Default:#REQUIRED
+  
+  @Element:
+    @@Name: item
+    @@Content: "ANY"
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "entered-by"
+        @@@@Type: addr-spec
+        @@@@Default:#REQUIRED
+      @@@Attribute:
+        @@@@Name: "date"
+        @@@@Type: "CDATA"
+        @@@@Default:#REQUIRED
+  
+  @Element:
+    @@Name: resolution
+    @@Content: "ANY"
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "entered-by"
+        @@@@Type: addr-spec
+        @@@@Default:#REQUIRED
+      @@@Attribute:
+        @@@@Name: "date"
+        @@@@Type: "CDATA"
+        @@@@Default:#REQUIRED
