@@ -1,0 +1,376 @@
+#?SuikaWikiConfig/2.0
+
+ModuleSet:
+  @Name:
+    Draft revision of RFC 2629
+  @Version:
+    <http://xml.resource.org/authoring/draft-mrose-writing-rfcs.html>
+  @ID: rfc2629bis
+  @BaseURI:
+    http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/module/
+  
+  @Namespace:
+    @@Name:
+      urn:x-suika-fam-cx:markup:ietf:rfc:2629:
+    @@DefaultPrefix: rfc
+    @@UsePrefix: -1
+  
+  @Copyright: Wakaba <w@suika.fam.cx>
+  @RCSDate: $Date: 2004/01/13 11:13:48 $
+
+Datatype:
+  @Description:
+    Note: This module should be included before rfc2629-datatype.mod
+    is included, since some definition is updated.
+  
+  @Type:
+    @@Name:
+      rfc2629:ATEXT
+    @@XMLType: CDATA
+  
+  @Type:
+    @@Name:
+      rfc2629:CTEXT
+    @@XMLType: #PCDATA
+  
+  @Type:
+    @@Name: format-type
+    @@XMLType: CDATA
+    @@Description: 'TXT' / ...
+  
+  @Type:
+    @@Name: list-counter
+    @@XMLType: CDATA
+    @@Description: $formatting-string
+  
+  @Type:
+    @@Name:
+      :LanguageCode
+    @@XMLType: CDATA
+    @@Description: IETF Language Code
+  
+  @Type:
+    @@Name:
+      rfc2629:list-style
+    #@@XMLType: (numbers|symbols|hanging|empty|format)
+    @@XMLType: CDATA
+    @@Description:
+      (numbers|symbols|hanging|empty|$format)
+      \
+      $format    := 'format ' $formatting-string
+      $formatting-string := $bare $percented $bare
+      $bare      := $CDATA - ([$CDATA] $percented [$CDATA])
+      $percented := '%d' / '%c'
+      
+  
+  @Type:
+    @@Name:
+      rfc2629:NUMBER
+    @@XMLType: NMTOKEN
+    @@Description: 1*DIGIT
+  
+  @Type:
+    @@Name: percentage
+    @@XMLType: CDATA
+    @@Description: 1*DIGIT "%"
+  
+  @Type:
+    @@Name: role
+    @@XMLType: (editor)
+    @@Description: Author's role
+  
+  @Attribute:
+    @@Name:
+      rfc2629:target-uri
+    
+    @@Attribute:
+      @@@Name: "target"
+      @@@Type:
+       :URI
+  
+  @Type:
+    @@Name:
+      rfc2629:truefalse
+    @@XMLType: (true|false)
+  
+  @Type:
+    @@Name:
+      :URI
+    @@XMLType: CDATA
+    @@Description: URI Reference
+  
+  @Type:
+    @@Name: xspan-style
+    @@XMLType: CDATA
+    @@Description: (emph|strong|verb|$ext)
+  
+Attribute:
+  @Attribute:
+    @@Name:
+      rfc2629:anchor
+    
+    @@Attribute:
+      @@@Name: "anchor"
+      @@@Type: "ID"
+      @@@Description: Cross-referencing with the xref element
+  
+  @Attribute:
+    @@Name:
+      rfc2629:section-title
+    
+    @@Attribute:
+      @@@Name: "title"
+      @@@Type: ATEXT
+      @@@Default: #REQUIRED
+
+Module:
+  @Name: Metainformational
+  @ID: metainfo
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    @@Attribute:
+      @@@Name: author.add
+      @@@ElementType: 
+        rfc2629:author
+      @@@Attribute:
+        @@@@Name: role
+        @@@@Type: role
+    @@Attribute:
+      @@@Name: rfc.lang
+      @@@ElementType: 
+        rfc2629:rfc
+      @@@Attribute:
+        @@@@Name:
+          xml:lang
+        @@@@Type:
+          :LanguageCode
+        @@@@Default: "en"
+        @@@@Description:
+          Indicate that the document is written in some language other
+          than English (for writing things other than RFCs)
+    
+    @@Attribute:
+      @@@Name: date.revised
+      @@@ElementType:
+        rfc2629:date
+      @@@Attribute:
+        @@@@Name: "day"
+        @@@@Type: DAY
+      @@@Attribute:
+        @@@@Name: "month"
+        @@@@Type: MONTH
+        @@@@Description: Changed to #IMPLIED (Was #REQUIRED in RFC 2629)
+      @@@Attribute:
+        @@@@Name: "year"
+        @@@@Type: YEAR
+        @@@@Default: #REQUIRED
+  
+  @Element:
+    @@Name: format
+    @@Content: "EMPTY"
+    
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "octets"
+        @@@@Type:
+          rfc2629:NUMBER
+        @@@@Description: The size in octets of the formatted document
+      @@@ref:
+        rfc2629:target-uri
+      @@@Attribute:
+        @@@@Name: "type"
+        @@@@Type: format-type
+        @@@@Default: #REQUIRED
+    @@Description:
+      An appendix section of the document
+  
+  @Element:
+    @@Name: annotation
+    @@Content:
+      ($:Inline.mix)*
+    
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "octets"
+        @@@@Type:
+          rfc2629:NUMBER
+        @@@@Description: The size in octets of the formatted document
+    @@Description: Annotate a citation
+
+Module:
+  @Name: Hyperlink
+  @ID: hyperlink
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    @@Attribute:
+      @@@Name: xref.add
+      @@@ElementType:
+        rfc2629:xref
+      @@@Attribute:
+        @@@@Name: "format"
+        @@@@Type: "(counter|title|default)"
+        @@@@Default: "default"
+    
+    @@Attribute:
+      @@@Name: iref.add
+      @@@ElementType:
+        rfc2629:iref
+      @@@Attribute:
+        @@@@Name: "primary"
+        @@@@Type:
+          rfc2629:truefalse
+        @@@@Default: "false"
+        @@@@Description:
+          This particular indexing entry should be considered "primary"
+    
+    @@Attribute:
+      @@@Name: references.add
+      @@@ElementType:
+        rfc2629:reference
+      @@@Attribute:
+        @@@@Name: "title"
+        @@@@Type:
+          rfc2629:ATEXT
+        @@@@Default: "References"
+
+Module:
+  @ID: struct
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    @@Attribute:
+      @@@Name: list.add
+      @@@ElementType: 
+        rfc2629:list
+      @@@Attribute:
+        @@@@Name: "counter"
+        @@@@Type: list-counter
+        @@@@Description:
+          "format": Controls the numbering
+      @@@Attribute:
+        @@@@Name: "hangIndent"
+        @@@@Type:
+          rfc2629:NUMBER
+        @@@@Description:
+          Overrides the default indentation used for the text of
+          each t element, ensuring that each t element has the same indentation
+  
+  @Element:
+    @@Name: appendix
+    @@Content:
+      ($:Block.mix)*
+    
+    @@Attribute:
+      @@@ref: 
+        rfc2629:anchor
+      @@@ref: 
+        rfc2629:section-title
+    @@Description:
+      An appendix section of the document
+
+Module:
+  @Name: Figure
+  @ID: figure
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    
+    @@Attribute:
+      @@@Name: artwork.add
+      @@@ElementType: 
+        rfc2629:artwork
+      @@@Attribute:
+        @@@@Name: "name"
+        @@@@Type:
+          rfc2629:ATEXT
+        @@@@Default: ""
+        @@@@Description:
+          Suggest a filename to use when storing the content of the element
+      @@@Attribute:
+        @@@@Name: "type"
+        @@@@Type:
+          rfc2629:ATEXT
+        @@@@Default: ""
+        @@@@Description: A suggestive data-typing for the content
+    
+    @@Attribute:
+      @@@Name: artwork.external
+      @@@ElementType: 
+        rfc2629:artwork
+      @@@Attribute:
+        @@@@Name: "height"
+        @@@@Type:
+          rfc2629:ATEXT
+        @@@@Default: ""
+      @@@Attribute:
+        @@@@Name: "src"
+        @@@@Type:
+          :URI
+        @@@@Default: ""
+      @@@Attribute:
+        @@@@Name: "width"
+        @@@@Type:
+          rfc2629:ATEXT
+        @@@@Default: ""
+  
+  @Element:
+    @@Name: texttable
+    @@Content: 
+      (
+        rfc2629:preamble?,
+        ttcol+,
+        c*,
+        rfc2629:postamble?
+      )
+    @@Attribute:
+      @@@ref:
+        rfc2629:anchor
+      @@@Attribute:
+        @@@@Name: "title"
+        @@@@Type: ATEXT
+        @@@@Default: ""
+        @@@@Description: Identifies the title of the table
+  
+  @Element:
+    @@Name: ttcol
+    @@Content: 
+      ($:Inline.mix)
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "align"
+        @@@@Type: "(left|center|right)"
+        @@@@Default: "left"
+        @@@@Description: Whether the column should be justified
+      @@@Attribute:
+        @@@@Name: "width"
+        @@@@Type: percentage
+        @@@@Description: Desired amount of horizontal space taken by the column
+  
+  @Element:
+    @@Name: c
+    @@Content: 
+      ($:Inline.mix)
+  
+Module:
+  @Name: Inline
+  @ID: inline
+  
+  @Element:
+    @@Name: spanx
+    @@Content: 
+      ($rfc2629:CTEXT.datatype)
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "style"
+        @@@@Type: spanx-style
+        @@@@Default: "emph"
+        @@@@Description: How the text inside the element should be rendered
+    @@Attribute:
+      @@Name:
+        "xml:space"
+      @@Type: "(default|preserve)"
+      @@Default: "preserve"
+    @@Description:
+      Provide formatting guidance to the XML application

@@ -3,6 +3,8 @@
 ModuleSet:
   @Name: Markup Language for IETF RFCs
   @Version: (RFC 2629)
+  @Description:
+    This is a XML based markup language for IETF RFC documents.
   @ID: rfc2629
   @BaseURI:
     http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/2629/
@@ -14,12 +16,13 @@ ModuleSet:
     @@UsePrefix: -1
   
   @Copyright: Wakaba <w@suika.fam.cx>
-  @RCSDate: $Date: 2003/10/30 07:06:48 $
+  @RCSDate: $Date: 2004/01/13 11:13:48 $
 
 Datatype:
   @Type:
     @@Name: NUMBER
-    @@XMLType: NMTOKEN
+    @@XMLType: CDATA
+    # NMTOKEN
     @@Description: [0-9]+
   @Type:
     @@Name: NUMBERS
@@ -28,17 +31,19 @@ Datatype:
   
   @Type:
     @@Name: DAY
-    @@XMLType: NMTOKEN
+    @@XMLType: CDATA
+    # NMTOKEN
     @@Description: "1" / "2" / ... / "31"
   @Type:
     @@Name: MONTH
-    @@XMLType:
-      (January|February|March|April|May|June|July
-      |August|September|October|November|December)
+    @@XMLType: CDATA
+    #  (January|February|March|April|May|June|July
+    #  |August|September|October|November|December)
     @@Description: 'January' / 'February' / ... / 'December'
   @Type:
     @@Name: YEAR
-    @@XMLType: NMTOKEN
+    @@XMLType: CDATA
+    # NMTOKEN
     @@Description: 4DIGIT
   
   @Type:
@@ -67,7 +72,8 @@ Datatype:
   
   @Type:
     @@Name: list-style
-    @@XMLType: (numbers|symbols|hanging|empty)
+    @@XMLType: CDATA
+    # (numbers|symbols|hanging|empty)
   
   @Type:
     @@Name: series-name
@@ -184,8 +190,11 @@ Module:
           (DTD shown in RFC 2629 is incorrect.)
 
 Module:
-  @Name: Figure
+  @Name: Figures
   @ID: figure
+  
+  @Description:
+    This module provides markup to support figure embedding.
   
   @Element:
     @@Name: figure
@@ -234,6 +243,9 @@ Module:
 Module:
   @Name: Metainformational
   @ID: metainfo
+  
+  @Description:
+    This module provides markup to describe information about document or person.
   
   @Element:
     @@Name: title
@@ -388,6 +400,9 @@ Module:
 Module:
   @Name: Reference
   @ID: reference
+  
+  @Description:
+    This module provides markup to support referring or hyperlinking.
   
   @Element:
     @@Name: references

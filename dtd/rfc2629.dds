@@ -3,6 +3,8 @@
 DocumentType:
   @Name: Markup Language for IETF RFCs
   @Version: (RFC 2629)
+  @Description:
+    This is a XML based markup language for IETF RFC documents.
   @ID: rfc2629
   @BaseURI:
     http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/
@@ -11,7 +13,7 @@ DocumentType:
     @@UsePrefix: 0
   
   @Copyright: Wakaba <w@suika.fam.cx>
-  @RCSDate: $Date: 2003/10/30 07:06:48 $
+  @RCSDate: $Date: 2004/01/13 11:13:48 $
 
 Driver:
   @ModuleSet:

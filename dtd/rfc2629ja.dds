@@ -3,6 +3,8 @@
 DocumentType:
   @Name: Markup Language for IETF RFCs with Japanese Translation Markup Framework
   @Version:
+  @Description:
+    This is an RFC markup language with additional markup for RFC translations.
   @ID: rfc2629ja
   @BaseURI:
     http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/
@@ -11,7 +13,7 @@ DocumentType:
     @@UsePrefix: 1
   
   @Copyright: Wakaba <w@suika.fam.cx>
-  @RCSDate: $Date: 2003/10/23 23:25:33 $
+  @RCSDate: $Date: 2004/01/13 11:13:48 $
 
 Driver:
   @ModuleSet:
