@@ -1,0 +1,10 @@
+2003-10-24  Wakaba  <w@suika.fam.cx>
+
+	* 2629/, 2629ja/, 2629xslt/: Removed.
+	* ChangeLog: New file.
+
+2003-10-23  Wakaba  <w@suika.fam.cx>
+
+	* Makefile: New file.
+	* rfc2629.dds, rfc2629ja.dds: New files.
+	* module/: New directory.

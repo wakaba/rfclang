@@ -1,0 +1,474 @@
+#?SuikaWikiConfig/2.0
+
+ModuleSet:
+  @Name: Markup Language for IETF RFCs
+  @Version: (RFC 2629)
+  @ID: rfc2629
+  @BaseURI:
+    http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/2629/
+  
+  @Namespace:
+    @@Name:
+      urn:x-suika-fam-cx:markup:ietf:rfc:2629:
+    @@DefaultPrefix: rfc
+    @@UsePrefix: -1
+  
+  @Copyright: Wakaba <w@suika.fam.cx>
+  @RCSDate: $Date: 2003/10/23 23:25:33 $
+
+Datatype:
+  @Type:
+    @@Name: NUMBER
+    @@XMLType: NMTOKEN
+    @@Description: [0-9]+
+  @Type:
+    @@Name: NUMBERS
+    @@XMLType: CDATA
+    @@Description: [NUMBER *("," NUMBER)]
+  
+  @Type:
+    @@Name: DAY
+    @@XMLType: NMTOKEN
+    @@Description: "1" / "2" / ... / "31"
+  @Type:
+    @@Name: MONTH
+    @@XMLType:
+      (January|February|March|April|May|June|July
+      |August|September|October|November|December)
+    @@Description: 'January' / 'February' / ... / 'December'
+  @Type:
+    @@Name: YEAR
+    @@XMLType: NMTOKEN
+    @@Description: 4DIGIT
+  
+  @Type:
+    @@Name:
+      :URI
+    @@XMLType: CDATA
+    @@Description: URI Reference
+  
+  @Type:
+    @@Name: ATEXT
+    @@XMLType: CDATA
+    @@Description: [U+0020-U+007E]+ (attribute value)
+  @Type:
+    @@Name: CTEXT
+    @@XMLType: #PCDATA
+    @@Description: [U+0020-U+007E]+ (content of element)
+  @Type:
+    @@Name: TEXT
+    @@XMLType: #PCDATA
+    @@Description: *CHAR (content of mixed context element)
+  
+  @Type:
+    @@Name: country
+    @@XMLType: #PCDATA
+    @@Description: should be a two-letter code from ISO 3166
+  
+  @Type:
+    @@Name: truefalse
+    @@XMLType: (true|false)
+  
+Notation:
+  @Notation:
+    @@Name:
+       :rfc
+    @@SYSTEM:
+      urn:x-suika-fam-cx:markup:ietf:rfc:2629:pi
+    @@Description: <?rfc?> processing instruction
+
+Attribute:
+  @Attribute:
+    @@Name: anchor
+    
+    @@Attribute:
+      @@@Name: "anchor"
+      @@@Type: "ID"
+  
+  @Attribute:
+    @@Name: abbrev
+    
+    @@Attribute:
+      @@@Name: "abbrev"
+      @@@Type: ATEXT
+
+Module:
+  @Name: Block Structual
+  @ID: blkstruct
+  
+  @Element:
+    @@Name: section
+    @@Content:
+      ($:Block.mix)*
+    
+    @@Attribute:
+      @@@ref: anchor
+      @@@Attribute:
+        @@@@Name: "title"
+        @@@@Type: ATEXT
+        @@@@Default: #REQUIRED
+  
+  @Element:
+    @@Name: t
+    @@Content:
+      (
+        $TEXT.datatype
+      | $list
+      | $figure
+      | $:Inline.mix
+      | vspace
+        $blockcontent
+      )*
+    
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "hangText"
+        @@@@Type: ATEXT
+  
+  @Element:
+    @@Name: vspace
+    @@Content: "EMPTY"
+    
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "blankLines"
+        @@@@Type: NUMBER
+        @@@@Default: "0"
+  
+  @Element:
+    @@Name: abstract
+    @@Content: (t)+
+  
+  @Element:
+    @@Name: note
+    @@Content: (t)+
+    
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "title"
+        @@@@Type: ATEXT
+        @@@@Default: #REQUIRED
+  
+  @Element:
+    @@Name: list
+    @@Content: (t)+
+    
+    @@Attribute:
+      @@@Attribute: 
+        @@@@Name: "style"
+        @@@@Type: ATEXT
+        @@@@Default: "empty"
+
+Module:
+  @Name: Figure
+  @ID: figure
+  
+  @Element:
+    @@Name: figure
+    @@Content: 
+      (
+        preamble?,
+        artwork,
+        postamble?
+      )
+    @@Attribute:
+      @@@ref: anchor
+      @@@Attribute:
+        @@@@Name: "title"
+        @@@@Type: ATEXT
+        @@@@Default: ""
+  
+  @Element:
+    @@Name: preamble
+    @@Content:
+      (
+        $TEXT.datatype
+      | $:Inline.mix
+        $blockcontent
+      )*
+  
+  @Element:
+    @@Name: postamble
+    @@Content:
+      (
+        $TEXT.datatype
+      | $:Inline.mix
+        $blockcontent
+      )*
+  
+  @Element:
+    @@Name: artwork
+    @@Content: ($TEXT.datatype)*
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name:
+          "xml:space"
+        @@@@Type: "(default|preserve)"
+        @@@@Default: "preserve"
+      @@@Attribute:
+        @@@@Name: "name"
+        @@@@Type: ATEXT
+        @@@@Default: ""
+      @@@Attribute:
+        @@@@Name: "type"
+        @@@@Type: ATEXT
+        @@@@Default: ""
+
+Module:
+  @Name: Metainformational
+  @ID: metainfo
+  
+  @Element:
+    @@Name: title
+    @@Content: $metaterm.content
+    @@Attribute:
+      @@@ref: abbrev
+  
+  @Element:
+    @@Name: author
+    @@Content:
+      (
+        organization,
+        address?
+      )
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "initials"
+        @@@@Type: ATEXT
+      @@@Attribute:
+        @@@@Name: "surname"
+        @@@@Type: ATEXT
+      @@@Attribute:
+        @@@@Name: "fullname"
+        @@@@Type: ATEXT
+  
+  @Element:
+    @@Name: organization
+    @@Content: $metaterm.content
+    @@Attribute:
+      @@@ref: abbrev
+  
+  @Element:
+    @@Name: address
+    @@Content:
+      (
+        postal?,
+        phone?,
+        facsimile?,
+        email?,
+        uri?
+      )
+  
+  @Element:
+    @@Name: postal
+    @@Content:
+      (
+        street+,
+       (
+         city
+       | region
+       | code
+       | country
+       )*
+      )
+    @@Description:
+      at most one of each the city, region, code, and country
+      elements may be present
+  
+  @Element:
+    @@Name: street
+    @@Content: $metaterm.content
+  @Element:
+    @@Name: city
+    @@Content: $metaterm.content
+  @Element:
+    @@Name: region
+    @@Content: $metaterm.content
+  @Element:
+    @@Name: code
+    @@Content: $metaterm.content
+  @Element:
+    @@Name: country
+    @@Content: ($country.datatype)
+  
+  @Element:
+    @@Name: phone
+    @@Content: $metaterm.content
+  @Element:
+    @@Name: facsimile
+    @@Content: $metaterm.content
+  @Element:
+    @@Name: email
+    @@Content: $metaterm.content
+  @Element:
+    @@Name: uri
+    @@Content: $metaterm.content
+  
+  @Element:
+    @@Name: date
+    @@Content: "EMPTY"
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "day"
+        @@@@Type: DAY
+      @@@Attribute:
+        @@@@Name: "month"
+        @@@@Type: MONTH
+        @@@@Default: #REQUIRED
+      @@@Attribute:
+        @@@@Name: "year"
+        @@@@Type: YEAR
+        @@@@Default: #REQUIRED
+  
+  @Element:
+    @@Name: area
+    @@Content: $metaterm.content
+  @Element:
+    @@Name: workgroup
+    @@Content: $metaterm.content
+  
+  @Element:
+    @@Name: keyword
+    @@Content: $metaterm.content
+  
+  @Element:
+    @@Name: seriesInfo
+    @@Content: "EMPTY"
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "name"
+        @@@@Type: ATEXT
+        @@@@Default: #REQUIRED
+      @@@Attribute:
+        @@@@Name: "value"
+        @@@@Type: ATEXT
+        @@@@Default: #REQUIRED
+  
+Module:
+  @Name: Reference
+  @ID: reference
+  
+  @Element:
+    @@Name: references
+    @@Content: (reference+)
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "abbrev"
+        @@@@Type: ATEXT
+        @@@@Default: "References"
+  
+  @Element:
+    @@Name: reference
+    @@Content: 
+      (
+        front,
+        seriesInfo*
+      )
+    @@Attribute:
+      @@@ref: anchor
+      @@@Attribute:
+        @@@@Name: "target"
+        @@@@Type:
+          :URI
+  
+  @Element:
+    @@Name: xref
+    @@Content: ($CTEXT.datatype)*
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "target"
+        @@@@Type: "IDREF"
+        @@@@Default: #REQUIRED
+      @@@Attribute:
+        @@@@Name: "pageno"
+        @@@@Type: truefalse
+        @@@@Default: "false"
+  @Element:
+    @@Name: eref
+    @@Content: ($CTEXT.datatype)*
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "target"
+        @@@@Type:
+          :URI
+        @@@@Default: #REQUIRED
+  
+  @Element:
+    @@Name: iref
+    @@Content: "EMPTY"
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "item"
+        @@@@Type: ATEXT
+        @@@@Default: #REQUIRED
+      @@@Attribute:
+        @@@@Name: "subitem"
+        @@@@Type: ATEXT
+        @@@@Default: ""
+      @@@Attribute:
+        @@@@Name: "primary"
+        @@@@Type: truefalse
+        @@@@Default: "false"
+
+Module:
+  @ID: struct
+  
+  @Element:
+    @@Name: rfc
+    @@Content:
+      (
+        front,
+        middle,
+        back?
+      )
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "number"
+        @@@@Type: NUMBER
+      @@@Attribute:
+        @@@@Name: "obsoletes"
+        @@@@Type: NUMBERS
+        @@@@Default: ""
+      @@@Attribute:
+        @@@@Name: "updates"
+        @@@@Type: NUMBERS
+        @@@@Default: ""
+      @@@Attribute:
+        @@@@Name: "category"
+        @@@@Type: "(std|bcp|info|exp|historic)"
+        @@@@Default: "info"
+      @@@Attribute:
+        @@@@Name: "seriesNo"
+        @@@@Type: NUMBER
+      @@@Attribute:
+        @@@@Name: "ipr"
+        @@@@Type: "(full2026|noDerivativeWorks2026|none)"
+      @@@Attribute:
+        @@@@Name: "docName"
+        @@@@Type: ATEXT
+  
+  @Element:
+    @@Name: front
+    @@Content:
+      (
+        $front-title,
+        author+,
+        date,
+        area*,
+        workgroup*,
+        keyword*,
+        abstract?,
+        note*
+      )
+  
+  @Element:
+    @@Name: middle
+    @@Content: (section)+
+  
+  @Element:
+    @@Name: back
+    @@Content:
+      (
+        references*,
+        section*
+      )

@@ -1,0 +1,37 @@
+#?SuikaWikiConfig/2.0
+
+ModuleSet:
+  @Name: Markup Language for IETF RFC
+  @Version: Additional vocabularies used in rfc2629.xslt
+  @ID: myns
+  @BaseURI:
+    http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/module/
+  
+  @Namespace:
+    @@Name:
+      mailto:julian.reschke@greenbytes.de?subject=rcf2629.xslt
+    @@DefaultPrefix: myns
+    @@UsePrefix: 1
+  
+  @Copyright: Wakaba <w@suika.fam.cx>
+  @RCSDate: $Date: 2003/10/23 23:25:33 $
+
+Datatype:
+  @Type:
+    @@Name: yesno
+    @@XMLType: (yes|no)
+  
+Module:
+  @Name: Block Structual
+  @ID: blkstruct
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    @@Attribute:
+      @@@Name: section.unnumbered
+      @@@ElementType: 
+        rfc2629:section
+      @@@Attribute:
+        @@@@Name: unnumbered
+        @@@@Type: yesno
+      @@Description: No numbering for the section

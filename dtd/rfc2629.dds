@@ -1,0 +1,194 @@
+#?SuikaWikiConfig/2.0
+
+DocumentType:
+  @Name: Markup Language for IETF RFCs
+  @Version: (RFC 2629)
+  @ID: rfc2629
+  @BaseURI:
+    http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/
+  
+  @Namespace:
+    @@UsePrefix: 0
+  
+  @Copyright: Wakaba <w@suika.fam.cx>
+  @RCSDate: $Date: 2003/10/23 23:25:33 $
+
+Driver:
+  @ModuleSet:
+    @@Name: Markup Language for IETF RFCs
+    @@ID: rfc2629
+    @@BaseURI:
+      module/
+    @@Namespace:
+      @@@Name:
+        urn:x-suika-fam-cx:markup:ietf:rfc:2629:
+      @@@DefaultPrefix: rfc
+      @@@UsePrefix: -1
+    @@Default: 1
+  
+  @QNameModule:
+    @@ID:
+      rfc2629:qname
+  
+  @DatatypeModule:
+    @@ID:
+      rfc2629:datatype
+  @NotationModule:
+    @@ID:
+      rfc2629:notation
+  
+  @AttributeModule:
+    @@ID:
+      rfc2629:attribs
+  
+  @Module:
+    @@ID:
+      rfc2629:blkstruct
+    @@Description: Block structural module
+  @Module:
+    @@ID:
+      rfc2629:figure
+    @@Description: Figure module
+  @Module:
+    @@ID:
+      rfc2629:metainfo
+    @@Description: Metainformational module
+  @Module:
+    @@ID:
+      rfc2629:reference
+    @@Description: Reference and hyperlink module
+  @Module:
+    @@ID:
+      rfc2629:struct
+    @@Description: Document structure module
+  
+  @GeneralEntity:
+    @@Name: rfc.number
+    @@EntityValue: XXXX
+    @@Description:
+      General entity "rfc.number"
+      \
+      If you use this entity, you should define this entity with your RFC issued
+      number in the internal subset of DOCTYPE declaration of your RFC document.
+
+Model:
+  
+  @Class:
+    @@Name: figure
+    @@Content: figure
+  
+  @Class:
+    @@Name: hyperlink
+    @@Content: xref | eref
+  
+  @Class:
+    @@Name: list
+    @@Content: list
+  
+  @Class:
+    @@Name: inline
+    @@Content:
+        $hyperlink
+  
+  @Class:
+    @@Name: blockcontent.extra
+    @@Content: 
+  @Class:
+    @@Name: blockcontent
+    @@Content: $blockcontent.extra
+  
+  @Class:
+    @@Name: block
+    @@Content:
+        t
+      | figure
+      | section
+  
+  @Class:
+    @@Name: misc
+    @@Content:
+        iref
+  
+  
+  @Class:
+    @@Name: metaterm.content
+    @@Content: ($CTEXT.datatype)
+    @@Description: Terminal element representing a meta property
+  
+  @Class:
+    @@Name: rfc-header.extra
+    @@Content: 
+  @Class:
+    @@Name: rfc-header
+    @@Content:
+      front
+      $rfc-header.extra
+  
+  @Class:
+    @@Name: front-title.extra
+    @@Content:
+  @Class:
+    @@Name: front-title
+    @@Content:
+      title
+      $front-title.extra
+  
+  @Class:
+    @@Name:
+      :Misc.extra
+    @@Content: 
+  @Class:
+    @@Name:
+      :Misc.class
+    @@Content:
+      $misc
+      $:Misc.extra
+    @@Description:
+      neither block nor inline, and can
+      essentially be used anywhere in the document body
+  
+  @Class:
+    @@Name:
+      :Inline.extra
+    @@Content: 
+  @Class:
+    @@Name:
+      :Inline.class
+    @@Content:
+      $inline
+      $:Inline.extra
+    @@Description: includes all inline elements
+  @Class:
+    @@Name: 
+      :Inline.mix
+    @@Content:
+      $:Inline.class
+      $:Misc.class
+    @@Description: all inline elements, including %Misc.class;
+  
+  @Class:
+    @@Name:
+      :Block.extra
+    @@Content: 
+  @Class:
+    @@Name:
+      :Block.class
+    @@Content:
+      $block
+      $:Block.extra
+    @@Description: includes all block elements
+  @Class:
+    @@Name: 
+      :Block.mix
+    @@Content:
+      $:Block.class
+      $:Misc.class
+    @@Description: includes all block elements plus %Misc.class;
+  
+  @Class:
+    @@Name:
+      :Flow.mix
+    @@Content:
+        $:Block.class
+      | $:Inline.class
+      $:Misc.class

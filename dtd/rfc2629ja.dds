@@ -1,0 +1,623 @@
+#?SuikaWikiConfig/2.0
+
+DocumentType:
+  @Name: Markup Language for IETF RFCs with Japanese Translation Markup Framework
+  @Version:
+  @ID: rfc2629ja
+  @BaseURI:
+    http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/
+  
+  @Namespace:
+    @@UsePrefix: 1
+  
+  @Copyright: Wakaba <w@suika.fam.cx>
+  @RCSDate: $Date: 2003/10/23 23:25:33 $
+
+Driver:
+  @ModuleSet:
+    @@Name: Markup Language for IETF RFCs
+    @@ID: rfc2629
+    @@BaseURI:
+      module/
+    @@Namespace:
+      @@@Name:
+        urn:x-suika-fam-cx:markup:ietf:rfc:2629:
+      @@@DefaultPrefix: rfc
+      @@@UsePrefix: -1
+    @@Default: 1
+  
+  @ModuleSet:
+    @@Name: Japanese Translation Markup Framework for RFC 2629 Markups
+    @@ID: rfc2629ja
+    @@BaseURI:
+      module/
+    @@Namespace:
+      @@@Name:
+        http://suika.fam.cx/~wakaba/lang/rfc/translation/
+      @@@DefaultPrefix: ja
+      @@@UsePrefix: 1
+    @@Default: 1
+  
+  @ModuleSet:
+    @@Name: rfc2629.xslt "myns"
+    @@ID: myns
+    @@BaseURI:
+      module/
+    @@Namespace:
+      @@@Name:
+        mailto:julian.reschke@greenbytes.de?subject=rcf2629.xslt
+      @@@DefaultPrefix: myns
+      @@@UsePrefix: 1
+    @@Default: 1
+  
+  @ModuleSet:
+    @@Name: Extensible Hypertext Markup Language, Version 1
+    @@ID: XHTML
+    @@BaseURI:
+      http://www.w3.org/TR/xhtml-modularization/DTD/
+    @@Namespace:
+      @@@Name:
+        http://www.w3.org/1999/xhtml
+      @@@DefaultPrefix: h
+      @@@UsePrefix: 1
+    @@Default: 1
+  
+  @ModuleSet:
+    @@Name: Extensible Hypertext Markup Language, Version 2
+    @@ID: XHTML2
+    @@BaseURI:
+      http://www.w3.org/TR/xhtml2/DTD/
+    @@Namespace:
+      @@@Name:
+        http://www.w3.org/2003/06/xhtml2
+      @@@DefaultPrefix: h2
+      @@@UsePrefix: 1
+    @@Default: -1
+  
+  @QNameModule:
+    @@ID:
+      XHTML:qname
+    @@SYSTEM:
+      xhtml-qname-1.mod
+    @@PUBLIC:
+      -//W3C//ENTITIES XHTML Qualified Names 1.0//EN
+  @QNameModule:
+    @@ID:
+      rfc2629:qname
+  @QNameModule:
+    @@ID:
+      rfc2629ja:qname
+  @QNameModule:
+    @@ID:
+      myns:qname
+  
+  @DatatypeModule:
+    @@ID:
+      rfc2629:datatype
+  @DatatypeModule:
+    @@ID:
+      rfc2629ja:datatype
+  @DatatypeModule:
+    @@ID:
+      XHTML:datatype
+    @@SYSTEM:
+      xhtml-datatypes-1.mod
+    @@PUBLIC:
+      -//W3C//ENTITIES XHTML Datatypes 1.0//EN
+  @DatatypeModule:
+    @@ID:
+      myns:datatype
+  
+  @NotationModule:
+    @@ID:
+      rfc2629:notation
+  @NotationModule:
+    @@ID:
+      rfc2629ja:notation
+  
+  @AttributeModule:
+    @@ID:
+      rfc2629:attribs
+    
+    @@AttributeSet:
+      @@@Name:
+        rfc2629:common.extra
+      @@@REF:
+        xml:base
+      @@@REF:
+        xml:lang
+      @@@REF:
+        xml:space
+  @AttributeModule:
+    @@ID:
+      rfc2629ja:attribs
+  @AttributeModule:
+    @@ID:
+      XHTML:attribs
+    @@SYSTEM:
+      xhtml-attribs-1.mod
+    @@PUBLIC:
+      -//W3C//ENTITIES XHTML Common Attributes 1.0//EN
+    
+    @@ParameterEntity:
+      @@@Name: XHTML.bidi
+      @@@EntityValue: INCLUDE
+    @@AttributeSet:
+      @@@Name: 
+        XHTML:common.extra
+      @@@REF:
+        xml:base
+      @@@REF:
+        xml:space
+  
+  @Module:
+    @@ID:
+      rfc2629:blkstruct
+    @@Description: Block structural module
+  
+  @Module:
+    @@ID:
+      XHTML:list
+    @@SYSTEM: xhtml-list-1.mod
+    @@PUBLIC: -//W3C//ELEMENTS XHTML Lists 1.0//EN
+    @@Description:
+      h:ul, h:ol, h:dl, h:li, h:dt, h:dd
+  
+  @Module:
+    @@ID:
+      rfc2629ja:blkstruct
+  @Module:
+    @@ID:
+      myns:blkstruct
+  
+  @Module:
+    @@ID:
+      XHTML:blkstruct
+    @@SYSTEM: xhtml-blkstruct-1.mod
+    @@PUBLIC: -//W3C//ELEMENTS XHTML Block Structural 1.0//EN
+    @@Description:
+      h:div
+    @@ElementSwitch:
+      @@@Name:
+        :p
+      @@@Use: -1
+    @@AttributeSwitch:
+      @@@Name:
+        :p
+      @@@Use: -1
+  
+  @Module:
+    @@ID:
+      rfc2629:figure
+    @@Description: Figure module
+  @Module:
+    @@ID:
+      rfc2629ja:figure
+  
+  @Module:
+    @@ID:
+      XHTML:table
+    @@SYSTEM: xhtml-table-1.mod
+    @@PUBLIC: -//W3C//ELEMENTS XHTML Tables 1.0//EN
+    @@ParameterEntity:
+      @@@Name: frame.attrib
+    @@ParameterEntity:
+      @@@Name: rules.attrib
+    @@ParameterEntity:
+      @@@Name: CellHAlign.attrib
+    @@ParameterEntity:
+      @@@Name: CellVAlign.attrib
+  
+  @Module:
+    @@ID:
+      rfc2629:metainfo
+    @@Description: Metainformational module
+  @Module:
+    @@ID:
+      rfc2629ja:metainfo
+  
+  @Module:
+    @@ID:
+      XHTML:style
+    @@Attribute:
+      @@@Name:
+        :style
+      @@@ElementType:
+        :style
+      @@@Attribute:
+        @@@@Name: "media"
+        @@@@Type:
+          :MediaDesc
+        @@@@Default: "all"
+    @@PUBLIC: -//W3C//ELEMENTS XHTML Style Sheets 1.0//EN
+    @@SYSTEM: xhtml-style-1.mod
+    @@Description: Stylesheet
+  
+  @Module:
+    @@ID:
+      rfc2629:reference
+    @@Description: Reference and hyperlink module
+  @Module:
+    @@ID:
+      rfc2629ja:link
+    @@Description: Hyperlink module
+  
+  @Module:
+    @@ID:
+      XHTML:inlphras
+    @@ElementSwitch:
+      @@@Name:
+        :acronym
+      @@@Use: -1
+    @@AttributeSwitch:
+      @@@Name:
+        :acronym
+      @@@Use: -1
+    @@ElementSwitch:
+      @@@Name:
+        :strong
+      @@@Use: -1
+    @@AttributeSwitch:
+      @@@Name:
+        :strong
+      @@@Use: -1
+    @@PUBLIC: -//W3C//ELEMENTS XHTML Inline Phrasal 1.0//EN
+    @@SYSTEM: xhtml-inlphras-1.mod
+    @@Description:
+      Inline Phrasal module
+      h:abbr, h:cite, h:code, h:dfn, h:em, h:kbd, h:q, h:samp, h:var
+  
+  @Module:
+    @@ID:
+      rfc2629:struct
+    @@Description: Document structural module
+  @Module:
+    @@ID:
+      rfc2629ja:transtruct
+    @@Description: Translation structural module
+  
+  @GeneralEntity:
+    @@Name: rfc.number
+    @@EntityValue: XXXX
+    @@Description:
+      General entity "rfc.number"
+      \
+      If you use this entity, you should define this entity with your RFC issued
+      number in the internal subset of DOCTYPE declaration of your RFC document.
+
+Model:
+  
+  
+  
+  
+  ## Inline or block
+  @Class:
+    @@Name:
+      :Edit
+    @@Content:
+      | :ins
+      | :del
+      | note
+  @Class:
+    @@Name:
+      :Misc.extra
+    @@Content: 
+  @Class:
+    @@Name:
+      :Misc.class
+    @@Content:
+        rfc2629:iref
+      $:Edit
+      $:Misc.extra
+    @@Description:
+      neither block nor inline, and can
+      essentially be used anywhere in the document body
+  
+  ## Inline
+  @Class:
+    @@Name:
+      :InlStruct
+    @@Content:
+      :span
+  @Class:
+    @@Name:
+      :InlPhras
+    @@Content:
+      | :em
+      | :dfn  | definition | word
+      | :code | :samp | :kbd  | :var
+      | :cite | :q
+      | :abbr
+      | mail
+  @Class:
+    @@Name:
+      :InlPres
+    @@Content:
+      | :sub  | :sup
+  @Class:
+    @@Name:
+      :Inline.extra
+    @@Content: 
+  @Class:
+    @@Name:
+      :Ruby
+    @@Content:
+      | :ruby
+  
+  @Class:
+    @@Name:
+      rfc2629:hyperlink
+    @@Content: 
+        rfc2629:xref
+      | rfc2629:eref
+  @Class:
+    @@Name:
+      :Anchor
+    @@Content:
+      | $rfc2629:hyperlink
+      | link | uri-ref
+  
+  @Class:
+    @@Name:
+      :InlNoRuby
+    @@Content:
+      $:InlStruct $:InlPhras $:InlPres $:Anchor $:Inline.extra
+  @Class:
+    @@Name:
+      :Inline.class
+    @@Content:
+      $:InlNoRuby $:Ruby
+    @@Description: includes all inline elements
+  @Class:
+    @@Name: 
+      :Inline.mix
+    @@Content:
+      $:Inline.class
+      $:Misc.class
+    @@Description: all inline elements, including %Misc.class;
+  @Class:
+    @@Name:
+      :InlNoAnchor
+    @@Content:
+      $:Inline
+  @Class:
+    @@Name:
+      :InlNoAnchor.mix
+    @@Content:
+      $:InlNoAnchor
+      $:Misc.class
+  @Class:
+    @@Name:
+      :NoRuby.content
+    @@Content:
+      (
+        \#PCDATA
+      | $:InlNoRuby
+        $:Misc.class
+      )*
+  
+  @Class:
+    @@Name:
+      CONREF.extra
+  @Class:
+    @@Name:
+      CONREF.content
+    @@Content:
+      (
+        \#PCDATA
+      | $:InlNoAnchor.mix
+        $CONREF.extra
+      )*
+  
+  @Class:
+    @@Name:
+      rfc2629:metaterm.content
+    @@Content:
+      (
+        \#PCDATA
+      | $:Inline.mix
+      )*
+    @@Description: Terminal element representing a meta property
+  
+  ## Block
+  @Class:
+    @@Name: 
+      rfc2629:list
+    @@Content: 
+      rfc2629:list
+  @Class:
+    @@Name:
+      :List
+    @@Content:
+        :ul
+      | :ol
+      | :dl
+      | $rfc2629:list
+  
+  @Class:
+    @@Name:
+      :Table
+    @@Content:
+      | :table
+  
+  @Class:
+    @@Name:
+      :BlkStruct
+    @@Content:
+        rfc2629:t
+      | :div
+      | rfc2629:section
+      | insert
+  
+  @Class:
+    @@Name:
+      rfc2629:figure
+    @@Content: 
+      rfc2629:figure
+  @Class:
+    @@Name:
+      :BlkPhrase
+    @@Content:
+      | :blockquote
+      | $rfc2629:figure
+      | example
+  
+  @Class:
+    @@Name:
+      :BlkSpecial
+    @@Content:
+        $:Table
+  
+  @Class:
+    @@Name:
+      :Block.extra
+    @@Content: 
+  @Class:
+    @@Name:
+      :Block.class
+    @@Content:
+        $:BlkStruct
+        $:BlkPhrase
+        $:BlkSpecial
+        $:Block.extra
+    @@Description: includes all block elements
+  @Class:
+    @@Name: 
+      :Block.mix
+    @@Content:
+        $:List
+      | $:Block.class
+        $:Misc.class
+    @@Description: includes all block elements plus %Misc.class;
+  
+  @Class:
+    @@Name:
+      :Flow.mix
+    @@Content:
+        $:List
+      | $:Block.class
+      | $:Inline.class
+      $:Misc.class
+  
+  @Class:
+    @@Name: 
+      rfc2629:blockcontent.extra
+    @@Content: 
+  @Class:
+    @@Name: 
+      rfc2629:blockcontent
+    @@Content:
+      | pair
+        $rfc2629:blockcontent.extra
+    @@Description:
+      Content of rfc2629:t, rfc2629:preamble, rfc2629:postamble
+  
+  @Class:
+    @@Name: front.extra
+    @@Content:
+      | :style
+  
+  ## Changes to RFC 2629 content model
+  @Content:
+    @@ElementType:
+      rfc2629:address
+    @@Content:
+      (
+        rfc2629:postal?,
+        rfc2629:phone*,
+        rfc2629:facsimile*,
+        rfc2629:email*,
+        email*,
+        rfc2629:uri*
+      )
+  @Content:
+    @@ElementType:
+      rfc2629:author
+    @@Content:
+      (
+       (rfc2629:organization*,
+        organization*,
+        rfc2629:address?)
+      | rfc2629:address
+      )?
+  @Content:
+    @@ElementType:
+      rfc2629:back
+    @@Content:
+      (
+        insert*,
+        rfc2629:references*,
+        insert*,
+        rfc2629:section*,
+        insert*
+      )
+  @Content:
+    @@ElementType:
+      rfc2629:figure
+    @@Content:
+      (
+        rfc2629:preamble?,
+        ( rfc2629:artwork
+        | pair
+        | artwork
+        ),
+        rfc2629:postamble?
+      )
+  @Content:
+    @@ElementType:
+      rfc2629:front
+    @@Content:
+      (
+        (
+          rfc2629:title
+        | title
+        | title-ja
+        )+,
+        rfc2629:author*,
+        publisher?,
+        rfc2629:date?,
+        rfc2629:area*,
+        rfc2629:workgroup*,
+        rfc2629:keyword*,
+        rfc2629:abstract?,
+        rfc2629:note*
+      )
+  @Content:
+    @@ElementType:
+      rfc2629:middle
+    @@Content:
+      (
+        rfc2629:section
+      | insert
+      )+
+  @Content:
+    @@ElementType:
+      rfc2629:reference
+    @@Content:
+      (
+        rfc2629:front,
+        rfc2629:seriesInfo*,
+        add-info?
+      )
+  @Content:
+    @@ElementType:
+      rfc2629:rfc
+    @@Content:
+      (
+        rfc2629:front,
+        front?,
+        rfc2629:middle,
+        rfc2629:back?,
+        back?
+      )
+  @Content:
+    @@Name:
+      rfc2629:t
+    @@Content:
+      (
+        $rfc2629:TEXT.datatype
+      | $:Flow.mix
+        $rfc2629:blockcontent
+      )*
+    @@Description:
+      Allow rfc2629:list/rfc2629:t/rfc2629:t

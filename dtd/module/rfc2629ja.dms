@@ -1,0 +1,555 @@
+#?SuikaWikiConfig/2.0
+
+ModuleSet:
+  @Name: Japanese Translation Markup Framework for RFC 2629 Markups
+  @Version: 
+  @ID: rfc2629ja
+  @BaseURI:
+    http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/module/
+  
+  @Namespace:
+    @@Name:
+      http://suika.fam.cx/~wakaba/lang/rfc/translation/
+    @@DefaultPrefix: ja
+    @@UsePrefix: 1
+  
+  @Copyright: Wakaba <w@suika.fam.cx>
+  @RCSDate: $Date: 2003/10/23 23:25:33 $
+
+Datatype:
+  @Type:
+    @@Name:
+      rfc2629:NUMBER
+    @@XMLType: NMTOKEN
+    @@Description: [0-9]+
+  
+  @Type:
+    @@Name:
+      :URI
+    @@XMLType: CDATA
+    @@Description: URI Reference
+  
+  @Type:
+    @@Name: 
+      rfc2629:DAY
+    @@XMLType: NMTOKEN
+    @@Description: "1" / "2" / ... / "31"
+  @Type:
+    @@Name: month
+    @@XMLType:
+      (01|02|03|04|05|06|07|08|09|10|11|12)
+  @Type:
+    @@Name: 
+      rfc2629:YEAR
+    @@XMLType: NMTOKEN
+    @@Description: 4DIGIT
+  
+  @Type:
+    @@Name:
+      rfc2629:TEXT
+    @@XMLType: #PCDATA
+    @@Description: *CHAR (content of mixed context element)
+  
+Notation:
+  @Notation:
+    @@Name:
+       :rfc-translation
+    @@SYSTEM:
+      urn:x-suika-fam-cx:markup:rfc:translation:pi
+    @@Description: <?rfc-translation?> processing instruction
+
+Attribute:
+  @Attribute:
+    @@Name: common
+    
+    @@REF:
+      xml:base
+    @@REF:
+      xml:lang
+    @@REF:
+      xml:space
+
+Module:
+  @Name: Block Structual
+  @ID: blkstruct
+  
+  @Element:
+    @@Name: example
+    @@Content:
+      (
+        $rfc2629:TEXT.datatype
+      | $:Flow.mix
+      )*
+    
+    @@Description:
+      Showing an example.
+      Note that only inline level elements or only block level elements
+      should be used for the content of an element.
+  
+  @Element:
+    @@Name: insert
+    @@Content: "EMPTY"
+    
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "section"
+        @@@@Type: "(author-address|full-copyright|references|toc)"
+        @@@@Default: #REQUIRED
+      @@@Attribute:
+        @@@@Name: title-prefix
+        @@@@Type: "CDATA"
+      @@@Attribute:
+        @@@@Name: "title-prefix"
+        @@@@Type: "CDATA"
+    
+    @@Description: Inserting point of a special section
+  
+  @Element:
+    @@Name: note
+    @@Content:
+      (
+        $rfc2629:TEXT.datatype
+      | $:Flow.mix
+      )*
+    
+    @@Description:
+      Like h:ins, breaking block-inline structure,
+      eg. rfc2629:t/ja:note/rfc2629:t is forbidden
+  
+  @IfModuleSet:
+    @@ModuleSet: XHTML
+    @@Attribute:
+      @@@Name: ul.list-item
+      @@@ElementType: 
+        :ul
+      @@@Attribute:
+        @@@@Name: list-item
+        @@@@Type: "(none)"
+      @@@Description:
+        html|ul[ja|list-item="none"] {list-style-item: none}
+  
+  @Element:
+    @@Name: back
+    @@Content:
+      (
+        rfc2629:section
+      | insert
+      )+
+    @@Description: Translator's notes appendixes
+  
+  @Attribute:
+    @@Name: t.hangText
+    @@ElementType:
+      rfc2629:t
+    
+    @@Attribute:
+      @@@Name: hangText-ja
+      @@@Type: "CDATA"
+    
+    @@Description: Translated values corresponding to rfc2629:t/@hangText
+
+Module:
+  @Name: Figure
+  @ID: figure
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    @@Content:
+      @@@ElementType: artwork
+      @@@Content:
+        (
+          (
+            rfc2629:artwork,
+           (
+            $:Block.class
+           )?
+          )
+        | $:Block.class
+        )
+  @Element:
+    @@Name: artwork
+    @@Content: 
+      ($:Block.class)
+    @@Description:
+      Wrapper element for a rfc2629:artwork (preformatted ASCII text)
+      and/or something an XML block level element
+
+Module:
+  @Name: Hyperlink
+  @ID: link
+  
+  @Element:
+    @@Name: link
+    @@Content: $CONREF.content
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "number"
+        @@@@Type:
+          rfc2629:NUMBER
+        @@@@Default: #REQUIRED
+      @@@Attribute:
+        @@@@Name: "section"
+        @@@@Type:
+          rfc2629:NUMBER
+      @@@Attribute:
+        @@@@Name: "type"
+        @@@@Type: "(rfc|std|bcp|fyi)"
+        @@@@Default: #REQUIRED
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    @@Attribute:
+      @@@Name: t.anchor
+      @@@ElementType:
+        rfc2629:t
+      @@@Attribute:
+        @@@@Name: anchor
+        @@@@Type: "ID"
+      @@@Description:
+        Source anchor of list item
+    
+    @@Attribute:
+      @@@Name: reference.target
+      @@@ElementType:
+        rfc2629:reference
+      @@@Attribute:
+        @@@@Name: target-ja
+        @@@@Type:
+         :URI
+      @@@Description:
+        A URI Reference to the non-English version or non-English translation
+        of the referred document
+    
+    @@Attribute:
+      @@@Name: reference.text
+      @@@ElementType:
+        rfc2629:reference
+      @@@Attribute:
+        @@@@Name: text
+        @@@@Type: "CDATA"
+      @@@Description:
+        Original text shown as in the RFC
+    
+  @Element:
+    @@Name: mail
+    @@Content: $CONREF.content
+    @@Description: An Internet mail address
+  
+  @Element:
+    @@Name: uri-ref
+    @@Content:
+      (
+        $rfc2629:TEXT.datatype
+      | $:Inline.mix
+      )*
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "target"
+        @@@@Type:
+          :URI
+        @@@@Default: #REQUIRED
+  
+  @Element:
+    @@Name: definition
+    @@Content:
+      (
+        $rfc2629:TEXT.datatype
+      | $:Inline.mix
+      )*
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "translation"
+        @@@@Type: "CDATA"
+      @@@Attribute:
+        @@@@Name: "word"
+        @@@@Type: "CDATA"
+        @@@@Default: #REQUIRED
+    @@Description:
+      <ja:definition word="defined word" traslation="Teigi sareru kotoba">
+        Teigi bun.
+      </ja:definition>
+  
+  @Element:
+    @@Name: word
+    @@Content:
+      (
+        $rfc2629:TEXT.datatype
+      | $:Inline.mix
+      )*
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "name"
+        @@@@Type: "CDATA"
+        @@@@Default: #REQUIRED
+    @@Description: Reference to the definition
+  
+Module:
+  @Name: Metainformational
+  @ID: metainfo
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    @@Content:
+      @@@ElementType: front
+      @@@Content:
+        (
+          rfc2629:author
+        | rfc2629:date
+        | rfc2629:keyword
+        | copyright
+        | change
+        $front.extra
+        )+
+  @Element:
+    @@Name: front
+    @@Content:
+      (
+        copyright
+      | change
+      $front.extra
+      )+
+    @@Description: Metainformation about the translation
+  
+  @Element:
+    @@Name: change
+    @@Content: 
+      (
+        item
+      )+
+  
+  @Element:
+    @@Name: copyright
+    @@Content: 
+      (
+        item
+      | full-statement
+      )+
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    @@Content:
+      @@@ElementType: item
+      @@@Content:
+        (
+          $rfc2629:TEXT.datatype
+        | $:Inline.mix
+        | rfc2629:t
+        | rfc2629:author
+        )*
+  @Element:
+    @@Name: item
+    @@Content:
+      (
+        $rfc2629:TEXT.datatype
+      | $:Inline.mix
+      )*
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "year"
+        @@@@Type:
+          rfc2629:YEAR
+      @@@Attribute:
+        @@@@Name: "month"
+        @@@@Type: month
+      @@@Attribute:
+        @@@@Name: "day"
+        @@@@Type:
+          rfc2629:DAY
+    @@Description:
+      ja:copyright/ja:item : %rfc2629.metaterm.content;
+      ja:change/ja:item : (author,t*) ; @year, @month, @day
+      (How bad design!)
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    @@Content:
+      @@@ElementType: full-statement
+      @@@Content:
+        (
+          rfc2629:t
+        | rfc2629:figure
+        | rfc2629:iref
+        )+
+  @Element:
+    @@Name: full-statement
+    @@Content:
+      "ANY"
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    
+    @@Attribute:
+      @@@Name: author.idref
+      @@@ElementType:
+        rfc2629:author
+      @@@Attribute:
+        @@@@Name: id
+        @@@@Type: "ID"
+      @@@Attribute:
+        @@@@Name: ref
+        @@@@Type: "IDREF"
+      @@@Description:
+        Author information referring
+    
+    @@Attribute:
+      @@@Name: author.shownname
+      @@@ElementType:
+        rfc2629:author
+      @@@Attribute:
+        @@@@Name: header-name
+        @@@@Type: "CDATA"
+      @@@Attribute:
+        @@@@Name: text
+        @@@@Type: "CDATA"
+      @@@Description:
+        Author's name shown in RFC header and other positions
+    
+    @@Attribute:
+      @@@Name: country.shownname
+      @@@ElementType:
+        rfc2629:country
+      @@@Attribute:
+        @@@@Name: show
+        @@@@Type: "CDATA"
+      @@@Attribute:
+        @@@@Name: text
+        @@@@Type: "CDATA"
+      @@@Description:
+        Country name shown in RFC text
+    
+    @@Attribute:
+      @@@Name: facsimile.shownname
+      @@@ElementType:
+        rfc2629:facsimile
+      @@@Attribute:
+        @@@@Name: text
+        @@@@Type: "CDATA"
+      @@@Description:
+        FAX number text shown in RFC
+    @@Attribute:
+      @@@Name: phone.shownname
+      @@@ElementType:
+        rfc2629:phone
+      @@@Attribute:
+        @@@@Name: text
+        @@@@Type: "CDATA"
+      @@@Description:
+        Telephone number text shown in RFC
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    @@Content:
+      @@@ElementType: add-info
+      @@@Content: 
+        $rfc2629:metaterm.content
+  @Element:
+    @@Name: add-info
+    @@Content:
+      ($rfc2629:TEXT.datatype)*
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    @@Content:
+      @@@ElementType: organization
+      @@@Content: 
+        $rfc2629:metaterm.content
+  @Element:
+    @@Name: organization
+    @@Content:
+      ($rfc2629:TEXT.datatype)*
+    @@Description:
+      An additional organization
+      (for authors belonging to multiple organizations)
+      
+      Obsolete : use rfc2629:organization
+                 with some changes to the content model of rfc2629:front
+  
+  @IfModuleSet:
+    @@ModuleSet: rfc2629
+    @@Content:
+      @@@ElementType: email
+      @@@Content: 
+        $rfc2629:metaterm.content
+  @Element:
+    @@Name: email
+    @@Content:
+      ($rfc2629:TEXT.datatype)*
+    @@Description:
+      An additional Internet mail address
+      (for authors who have multiple Internet mail addresses)
+      
+      Obsolete : use rfc2629:email
+                 with some changes to the content model of rfc2629:front
+  
+  @Element:
+    @@Name: publisher
+    @@Content: "EMPTY"
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "fullname"
+        @@@@Type: "CDATA"
+    @@Description:
+      A publisher of the document
+
+Module:
+  @Name: Translation Structural
+  @ID: transtruct
+  
+  @Element:
+    @@Name: pair
+    @@Content:
+      (
+        l
+      )+
+  
+  @Element:
+    @@Name: l
+    @@Content:
+      (
+        $rfc2629:TEXT.datatype
+      | $:Inline.mix
+      | rfc2629:artwork
+      | artwork
+      | rfc2629:preamble
+      | rfc2629:postamble
+      )*
+    @@Description:
+      can contain rfc2629[ja]:{artwork|{pre|post}amble} only
+      when "rfc2629:figure/ja:pair/ja:l/rfc2629:*"
+  
+  @Element:
+    @@Name: title
+    @@Content:
+      (
+        $rfc2629:TEXT.datatype
+      | $:Inline.mix
+      )*
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "abbrev"
+        @@@@Type: "CDATA"
+    @@Description:
+      obsolete : use rfc2629:title[@xml:lang] instead
+  @Element:
+    @@Name: title-ja
+    @@Content:
+      (
+        $rfc2629:TEXT.datatype
+      | $:Inline.mix
+      )*
+    @@Attribute:
+      @@@Attribute:
+        @@@@Name: "abbrev"
+        @@@@Type: "CDATA"
+    @@Description:
+      obsolete : use rfc2629:title[@xml:lang] instead
+  
+  @Attribute:
+    @@Name: section.title
+    @@ElementType:
+      rfc2629:section
+    @@Attribute:
+      @@@Name: title-ja
+      @@@Type: "CDATA"
+    @@Description:
+      Translated title of the section
