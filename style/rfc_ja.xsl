@@ -3,21 +3,23 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:h="http://www.w3.org/1999/xhtml"
   xmlns:s="http://www.w3.org/1999/XSL/Transform"
-  xmlns:ja="http://suika.fam.cx/~wakaba/lang/rfc/translate/"
+  xmlns:ja="http://suika.fam.cx/~wakaba/lang/rfc/translation/"
   xmlns:ed="http://greenbytes.de/2002/rfcedit"
   xmlns:myns="mailto:julian.reschke@greenbytes.de?subject=rcf2629.xslt"
-  exclude-result-prefixes="ed myns ja"
+  exclude-result-prefixes="ed h ja myns"
   version="1.0">
 
   <s:output encoding="iso-2022-jp" indent="yes"
     method="xml" omit-xml-declaration="no"
     doctype-public="-//W3C//DTD XHTML 1.1//EN"
     doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" />
+  <!--<s:output encoding="iso-2022-jp" indent="yes"
+    method="html" doctype-public="-//W3C//DTD HTML 4.01//EN" />-->
   <s:param name="uri-rfc-prefix" select="'http://suika.fam.cx/uri-res/N2L?urn:ietf:rfc:'" />
   <s:param name="uri-std-prefix" select="'http://suika.fam.cx/uri-res/N2L?urn:ietf:std:'" />
   <s:param name="uri-bcp-prefix" select="'http://suika.fam.cx/uri-res/N2L?urn:ietf:bcp:'" />
   <s:param name="uri-fyi-prefix" select="'http://suika.fam.cx/uri-res/N2L?urn:ietf:fyi:'" />
-  <s:param name="uri-stylesheet-css" select="'rfcja-style.css'" />
+  <s:param name="uri-stylesheet-css" select="'http://suika.fam.cx/~wakaba/lang/rfc/translation/rfc-ja-style.css'" />
   
   <!-- <?rfc toc="yes/no"?> -->
   <s:param name="include-toc" select="substring-after(translate(/processing-instruction('rfc')[contains(.,'toc=')], '&quot; ', ''),'toc=')" />
@@ -36,7 +38,7 @@
   <s:param name="output-http-equiv" select="substring-after(translate(/processing-instruction('rfc-translation')[contains(.,'output-http-equiv=')], '&quot; ', ''),'output-http-equiv=')" />
   
 <s:template match="/">
-  <s:apply-templates match="rfc" />
+  <s:apply-templates select="rfc" />
 </s:template>
 
 <s:template match="rfc">
@@ -52,10 +54,11 @@
       <s:value-of select="front/title" />
     </s:otherwise></s:choose>
   </s:variable>
-  
+  <!--
   <s:processing-instruction name="xml-stylesheet">href="<s:value-of select="$uri-stylesheet-css" />" type="text/css"</s:processing-instruction>
+  -->
   <html>
-    <head profile="http://suika.fam.cx/~wakaba/lang/rfc/translate/html-profile">
+    <head profile="http://suika.fam.cx/~wakaba/lang/rfc/translation/html-profile">
       <s:if test="$output-http-equiv != 'no'">
         <meta http-equiv="Content-Style-Type" content="text/css" />
       </s:if>
@@ -131,7 +134,7 @@
           <s:with-param name="list" select="normalize-space(/rfc/@updates)" />
         </s:call-template></li>
       </s:if>
-      <li><span class="t-pair"><span xml:lang="en" class="t-l-en t-hide-no">Category: <s:call-template name="category-name" /></span></span></li>
+      <li><span class="t-pair"><span xml:lang="en" class="t-l-en">Category: <s:call-template name="category-name" /></span></span></li>
       <li><span class="t-pair"><span xml:lang="ja" class="t-l-ja">分類: <s:call-template name="category-name-ja" /></span></span></li>
       <s:if test="/rfc/@ipr">
         <li><span class="t-pair"><span xml:lang="en" class="t-l-en">Expires: <s:call-template name="expiry-date" /></span></span></li>
@@ -503,8 +506,8 @@
         <h1 xml:lang="ja" class="t-l-ja">著作権表示</h1>
       </div>
       
-      <div class="t-pair">
-        <p class="t-l-en t-hide-no" xml:lang="en">Copyright &#xA9; 
+      <div class="t-pair t-hide-no">
+        <p class="t-l-en" xml:lang="en">Copyright &#xA9; 
         <a href="http://www.isoc.org/">The Internet Society</a> 
         (<s:value-of select="/rfc/front/date/@year" />). 
         All Rights Reserved.</p>
@@ -737,6 +740,9 @@
 
 <s:template match="ja:pair">
     <div class="t-pair">
+      <s:if test="@ja:hide = 'no'">
+        <s:attribute name="class">t-hide-no</s:attribute>
+      </s:if>
       <s:for-each select="ja:l">
         <p xml:lang="{@xml:lang}" class="t-l-{@xml:lang}">
           <s:apply-templates />
@@ -807,7 +813,7 @@
 
 <!-- back -->
 <s:template match="back">
-  <s:apply-templates match="references" />
+  <s:apply-templates select="references" />
   <s:call-template name="back-author-address" />
   <s:apply-templates select="*[not(self::references)]" />
   <!--<s:if test="//iref">
@@ -838,8 +844,8 @@
         <h1 xml:lang="ja" class="t-l-ja">完全な著作権声明</h1>
       </div>
       
-      <div class="t-pair">
-        <p class="t-l-en t-hide-no" xml:lang="en">
+      <div class="t-pair t-hide-no">
+        <p class="t-l-en" xml:lang="en">
           Copyright &#xa9; 
           <a href="http://www.isoc.org/">The Internet Society</a> 
           (<s:value-of select="/rfc/front/date/@year" />). 
@@ -853,8 +859,8 @@
       </div>
       
       <div class="rfc-t">
-        <div class="t-pair">
-          <p class="t-l-en t-hide-no" xml:lang="en">
+        <div class="t-pair t-hide-no">
+          <p class="t-l-en" xml:lang="en">
             This document and translations of it may be copied 
             and furnished
             to others, and derivative works that comment on or otherwise 
@@ -883,8 +889,8 @@
       </div>
       
       <div class="rfc-t">
-        <div class="t-pair">
-          <p class="t-l-en t-hide-no" xml:lang="en">
+        <div class="t-pair t-hide-no">
+          <p class="t-l-en" xml:lang="en">
             The limited permissions granted above are perpetual and will 
             not be revoked by the Internet Society or its successors or 
             assigns.
@@ -897,8 +903,8 @@
       </div>
       
       <div class="rfc-t">
-        <div class="t-pair">
-          <p class="t-l-en t-hide-no" xml:lang="en">
+        <div class="t-pair t-hide-no">
+          <p class="t-l-en" xml:lang="en">
             This document and the information contained herein is provided 
             on an “<strong>AS IS</strong>” basis and 
             <strong>THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
@@ -1325,9 +1331,9 @@
 </s:template>
 
 </s:stylesheet>
-<!-- rfc-ja.xsl *** RFC 2629 + 日本語訳 XML 形式 → XHTML 1.1
+<!-- rfc-ja.xsl *** RFC 2629 + 日本語訳 XML 形式 → HTML 4.01
                     XSLT スタイルシート
-                $Date: 2002/05/03 06:10:52 $
+                $Date: 2002/05/03 07:41:31 $
 -->
 <!-- 謝辞
        この XSLT は、 xml2rfc 1.12 package の rfc2629.xslt から
