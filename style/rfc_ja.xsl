@@ -21,7 +21,8 @@
   <s:param name="uri-fyi-prefix" select="'http://suika.fam.cx/uri-res/N2L?urn:ietf:fyi:'" />
   <s:param name="uri-stylesheet-css" select="'http://suika.fam.cx/~wakaba/lang/rfc/translation/rfc-ja-style.css'" />
   
-  <!-- <?rfc toc="yes/no"?> (default no) -->
+  <!-- <?rfc toc="yes/no"?> (default no)
+                            (you can use ja:insert element instead) -->
   <s:param name="include-toc" select="substring-after(translate(/processing-instruction('rfc')[contains(.,'toc=')], '&quot; ', ''),'toc=')" />
   <!-- <?rfc symrefs="yes/no"?> (default no) -->
   <s:param name="use-symbolic-reference" select="substring-after(translate(/processing-instruction('rfc')[contains(.,'symrefs=')], '&quot; ', ''),'symrefs=')" />
@@ -66,6 +67,14 @@
       </s:if>
       <title><s:value-of select="$title" /></title>
       <link rel="stylesheet" href="{$uri-stylesheet-css}" type="text/css" />
+      <s:if test="@number">
+        <link rel="alternate" href="{$uri-rfc-prefix}{@number}" hreflang="en" title="RFC {@number}" />
+        <link rev="made" href="http://www.rfceditor.org/" title="RFC Editor" />
+      </s:if>
+      <link rev="translate" href="#rfc-translators-note" />
+      <s:if test="front/author">
+        <meta name="author"><s:attribute name="content"><s:for-each select="front/author"><s:value-of select="concat(@fullname,', ')" /></s:for-each></s:attribute></meta>
+      </s:if>
       <s:if test="front/area"><meta name="ietf-area" content="{front/area}" /></s:if>
       <s:for-each select="front/workgroup">
         <meta name="ietf-workgroup" content="{text()}" />
@@ -620,6 +629,7 @@
   <s:when test="$title-small = 'iana considerations'">IANA に関して</s:when>
   <s:when test="$title-small = 'introduction'">はじめに</s:when>
   <s:when test="$title-small = 'mime considerations'">MIME に関して</s:when>
+  <s:when test="$title-small = 'requirements'">必要要件</s:when>
   <s:when test="$title-small = 'security considerations'">安全性に関して</s:when>
   <s:otherwise><s:if test="$return-en"><s:choose>
     <s:when test="$node/@title"><s:value-of select="$node/@title" /></s:when>
@@ -677,7 +687,10 @@
 </s:template>
 
 <s:template match="list[@style='empty' or not(@style)]/t">
-  <li><s:apply-templates /></li>
+  <li>
+    <s:if test="@ja:anchor"><s:attribute name="id"><s:value-of select="@ja:anchor" /></s:attribute></s:if>
+    <s:apply-templates />
+  </li>
 </s:template>
 
 <s:template match="list[@style='hanging']">
@@ -859,6 +872,12 @@
   <br class="rfc-vspace" /><span class="rfc-vspace" style="display: block; visibility: hidden; margin-bottom: {@blankLines - 2}em">&#xA0;</span>
 </s:template>
 
+<s:template match="ja:insert[@section='toc']">
+  <!--<s:call-template name="table-of-contents" />-->
+</s:template>
+<s:template match="ja:insert[@section='index']">
+  <!--<s:call-template name="back-index" />-->
+</s:template>
 <s:template match="ja:insert[@section='references']">
   <s:apply-templates select="/rfc//back/references" />
 </s:template>
@@ -1039,13 +1058,13 @@
 
 <s:template match="ja:note">
   <ins class="t-note t-l-ja" xml:lang="ja">
-    <span class="t-note-title">訳注:</span> <s:apply-templates />
+    <span class="t-note-title">訳注: </span> <s:apply-templates />
   </ins>
 </s:template>
 
 <s:template match="t//ja:note">
   <ins class="t-note t-l-ja" xml:lang="ja">
-    (<span class="t-note-title">訳注:</span> <s:apply-templates />)
+    (<span class="t-note-title">訳注: </span> <s:apply-templates />)
   </ins>
 </s:template>
 <s:template match="preamble//ja:note">
@@ -1093,6 +1112,11 @@
 <s:template match="h:samp">
   <samp><s:for-each select="@*">
       <s:attribute name="{name()}"><s:value-of select="." /></s:attribute>
+  </s:for-each>“<s:apply-templates />”</samp>
+</s:template>
+<s:template match="ja:l[@xml:lang = 'ja']//h:samp">
+  <samp><s:for-each select="@*">
+      <s:attribute name="{name()}"><s:value-of select="." /></s:attribute>
   </s:for-each>「<s:apply-templates />」</samp>
 </s:template>
 
@@ -1105,7 +1129,7 @@
       <s:attribute name="{name()}"><s:value-of select="." /></s:attribute>
   </s:for-each>“<s:apply-templates />”</q>
 </s:template>
-<s:template match="ja:l[@xml:lang = 'ja']//h:q|ja:front//h:q|ja:back//h:q">
+<s:template match="ja:l[@xml:lang = 'ja']//h:q|ja:front//h:q|ja:back//h:q|ja:title//h:q">
   <q><s:for-each select="@*">
       <s:attribute name="{name()}"><s:value-of select="." /></s:attribute>
   </s:for-each>「<s:apply-templates />」</q>
@@ -1124,7 +1148,7 @@
 <s:template match="author">
   <ul class="rfc-author">
   <s:if test="@fullname"><li class="rfc-author-fullname"><s:value-of select="@fullname" /></li></s:if>
-  <s:if test="organization"><li class="rfc-organization"><s:value-of select="organization" /></li> </s:if>
+  <s:for-each select="organization|ja:organization"><li class="rfc-organization"><s:value-of select="text()" /></li></s:for-each>
   <s:for-each select="(address/postal/street|address/postal/city|address/postal/region|address/postal/code|address/postal/country)">
     <s:choose>
     <s:when test="@ja:show = 'no'"></s:when>
@@ -1144,9 +1168,9 @@
       <s:otherwise><s:value-of select="address/facsimile" /></s:otherwise>
     </s:choose></li>
   </s:if>
-  <s:if test="address/email">
-    <li class="rfc-email">電子メイル: &lt;<a href="mailto:{address/email}"><s:value-of select="address/email" /></a>&gt;</li>
-  </s:if>
+  <s:for-each select="address/email|address/ja:email">
+    <li class="rfc-email">電子メイル: &lt;<a href="mailto:{text()}"><s:value-of select="text()" /></a>&gt;</li>
+  </s:for-each>
   <s:if test="address/uri">
     <li class="rfc-uri">URI: &lt;<a href="{address/uri}"><s:value-of select="address/uri" /></a>&gt;</li>
   </s:if>
@@ -1159,18 +1183,6 @@
     <s:choose>
     <s:when test="@target"><s:value-of select="@target" /></s:when>
     <s:when test="@ja:target"><s:value-of select="@ja:target" /></s:when>
-    <s:when test="seriesInfo/@name='RFC'">
-      <s:value-of select="concat($uri-rfc-prefix,seriesInfo[@name='RFC']/@value)" />
-    </s:when>
-    <s:when test="seriesInfo/@name='STD'">
-      <s:value-of select="concat($uri-std-prefix,seriesInfo[@name='STD']/@value)" />
-    </s:when>
-    <s:when test="seriesInfo/@name='BCP'">
-      <s:value-of select="concat($uri-bcp-prefix,seriesInfo[@name='BCP']/@value)" />
-    </s:when>
-    <s:when test="seriesInfo/@name='FYI'">
-      <s:value-of select="concat($uri-fyi-prefix,seriesInfo[@name='FYI']/@value)" />
-    </s:when>
     </s:choose>
   </s:variable>
   
@@ -1185,11 +1197,11 @@
     <s:if test="front/ja:title[@xml:lang='ja']">
       <span class="t-pair"><span xml:lang="ja" class="t-l-ja"><s:choose>
       <s:when test="@ja:target-ja">, 『<cite><a href="{@ja:target-ja}" title="URI: &lt;{@ja:target-ja}&gt;"><s:value-of select="front/ja:title[@xml:lang='ja']" /></a></cite>』</s:when>
-    <s:otherwise>, 『<cite><s:value-of select="front/ja:title[@xml:lang='ja']" /></cite>』</s:otherwise>
+      <s:otherwise>, 『<cite><s:value-of select="front/ja:title[@xml:lang='ja']" /></cite>』</s:otherwise>
       </s:choose></span></span>
     </s:if>
     
-    <s:for-each select="front/author">
+    <s:for-each select="front/author|front/ja:publisher">
       <s:choose>
       <s:when test="@ja:text">, <s:value-of select="@ja:text" /></s:when>
       <s:when test="@surname and @fullname">, <span title="@fullname"><s:value-of select="concat(@surname,', ',@initials)" /></span></s:when>
@@ -1201,6 +1213,10 @@
     <s:for-each select="seriesInfo">
       <s:choose>
       <s:when test="not(@name) and not(@value) and ./text()">, <s:value-of select="." /></s:when>
+      <s:when test="@name='RFC'">, <a href="{concat($uri-rfc-prefix,@value)}" title="URI: &lt;{concat($uri-rfc-prefix,@value)}&gt;">RFC <s:value-of select="@value" /></a></s:when>
+      <s:when test="@name='STD'">, <a href="{concat($uri-std-prefix,@value)}" title="URI: &lt;{concat($uri-std-prefix,@value)}&gt;">STD <s:value-of select="@value" /></a></s:when>
+      <s:when test="@name='BCP'">, <a href="{concat($uri-bcp-prefix,@value)}" title="URI: &lt;{concat($uri-bcp-prefix,@value)}&gt;">BCP <s:value-of select="@value" /></a></s:when>
+      <s:when test="@name='FYI'">, <a href="{concat($uri-fyi-prefix,@value)}" title="URI: &lt;{concat($uri-fyi-prefix,@value)}&gt;">FYI <s:value-of select="@value" /></a></s:when>
       <s:otherwise>, <s:value-of select="@name" />
         &#xA0;<s:value-of select="@value" /></s:otherwise>
       </s:choose>
@@ -1220,10 +1236,14 @@
     <s:otherwise>。</s:otherwise>
     </s:choose>
     
-    <s:if test="@ja:additional-information">
-      <s:apply-templates />
+    <s:if test="ja:add-info">
+      <s:apply-templates select="ja:add-info" />
     </s:if>
   </dd>
+</s:template>
+
+<s:template match="ja:add-info">
+  <span class="t-add-info"><s:apply-templates /></span>
 </s:template>
 
 <!-- copied from rfc2629.xslt -->
@@ -1231,6 +1251,7 @@
   <s:param name="node" />
   
   <s:choose>
+  <s:when test="$use-symbolic-reference='yes' and $node/@ja:text">[<s:value-of select="$node/@ja:text" />]</s:when>
   <s:when test="$use-symbolic-reference='yes'">[<s:value-of select="$node/@anchor" />]</s:when>
   <s:otherwise><s:for-each select="$node">[<s:number />]</s:for-each></s:otherwise>
   </s:choose>
@@ -1269,7 +1290,11 @@
 
 <!-- copied from rfc2629.xslt -->
 <s:template match="eref[node()]">
-  <a href="{@target}" title="URI: &lt;{@target}&gt;"><s:apply-templates /></a>
+  <a href="{@target}" title="URI: &lt;{@target}&gt;" class="rfc-eref"><s:apply-templates /></a>
+</s:template>
+
+<s:template match="eref[not(node())]">
+  &lt;<a href="{@target}" class="rfc-eref"><s:value-of select="@target" /></a>&gt;
 </s:template>
 
 <!-- copied from rfc2629.xslt -->
@@ -1447,7 +1472,7 @@
 </s:stylesheet>
 <!-- rfc-ja.xsl *** RFC 2629 + 日本語訳 XML 形式 → HTML 4.01
                     XSLT スタイルシート
-                $Date: 2002/05/09 09:54:06 $
+                $Date: 2002/05/12 04:32:45 $
 -->
 <!-- 謝辞
        この XSLT は、 xml2rfc 1.12 package の rfc2629.xslt から
