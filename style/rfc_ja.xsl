@@ -1533,14 +1533,20 @@
 </s:template>
 
 <s:template match="ja:copyright">
+  <s:if test="ja:item">
   <ul>
     <s:for-each select="ja:item">
       <s:apply-templates select="." />
     </s:for-each>
   </ul>
+  </s:if>
+  <s:apply-templates select="ja:full-statement" />
 </s:template>
 <s:template match="ja:copyright/ja:item">
   <li><s:apply-templates /></li>
+</s:template>
+<s:template match="ja:copyright/ja:full-statement">
+  <div class="t-full-statement"><s:apply-templates /></div>
 </s:template>
 
 <s:template name="footer">
@@ -1550,7 +1556,7 @@
 </s:stylesheet>
 <!-- rfc-ja.xsl *** RFC 2629 + 日本語訳 XML 形式 → XHTML 1.1
                     XSLT スタイルシート
-                $Date: 2002/09/01 09:21:05 $
+                $Date: 2002/09/01 09:50:31 $
 -->
 <!-- 謝辞
        この XSLT は、 xml2rfc 1.12 package の rfc2629.xslt から
