@@ -39,6 +39,8 @@
   <s:param name="show-rfc-acknowledgement-editor" select="substring-after(translate(/processing-instruction('rfc-translation')[contains(.,'show-rfc-acknowledgement-editor=')], '&quot; ', ''),'show-rfc-acknowledgement-editor=')" />
   <!-- <?rfc-translation output-http-equiv="yes/no"?> (default no) -->
   <s:param name="output-http-equiv" select="substring-after(translate(/processing-instruction('rfc-translation')[contains(.,'output-http-equiv=')], '&quot; ', ''),'output-http-equiv=')" />
+  <!-- <?rfc-translation autoquote-samp-element="yes/no"?> (default yes) -->
+  <s:param name="autoquote-samp-element" select="substring-after(translate(/processing-instruction('rfc-translation')[contains(.,'autoquote-samp-element=')], '&quot; ', ''),'autoquote-samp-element=')" />
   
 <s:template match="/">
   <s:apply-templates select="rfc" />
@@ -873,8 +875,8 @@
   <s:choose>
   <s:when test="/rfc/@category='bcp'">現状最善運用</s:when>
   <s:when test="/rfc/@category='exp'">実験的</s:when>
-  <s:when test="/rfc/@category='info'">参考</s:when>
-  <s:when test="/rfc/@category=''">参考</s:when>
+  <s:when test="/rfc/@category='info'">情報提供</s:when>
+  <s:when test="/rfc/@category=''">情報提供</s:when>
   <s:when test="/rfc/@category='std'">標準化過程</s:when>
   <s:otherwise>(分類無しまたは不明)</s:otherwise>
   </s:choose>
@@ -1171,12 +1173,18 @@
 <s:template match="h:samp">
   <samp><s:for-each select="@*">
       <s:attribute name="{name()}"><s:value-of select="." /></s:attribute>
-  </s:for-each>“<s:apply-templates />”</samp>
+  </s:for-each><s:choose>
+    <s:when test="$autoquote-samp-element='no'"><s:apply-templates /></s:when>
+    <s:otherwise>“<s:apply-templates />”</s:otherwise>
+  </s:choose></samp>
 </s:template>
 <s:template match="ja:l[@xml:lang = 'ja']//h:samp">
   <samp><s:for-each select="@*">
       <s:attribute name="{name()}"><s:value-of select="." /></s:attribute>
-  </s:for-each>「<s:apply-templates />」</samp>
+  </s:for-each><s:choose>
+    <s:when test="$autoquote-samp-element='no'"><s:apply-templates /></s:when>
+    <s:otherwise>「<s:apply-templates />」</s:otherwise>
+  </s:choose></samp>
 </s:template>
 
 <!-- 言語情報から引用符を分けるのは厳密には正しくありません
@@ -1192,6 +1200,12 @@
   <q><s:for-each select="@*">
       <s:attribute name="{name()}"><s:value-of select="." /></s:attribute>
   </s:for-each>「<s:apply-templates />」</q>
+</s:template>
+
+<s:template match="h:ul[@ja:list-item]">
+  <ul class="ja-list-item-{@ja:list-item}"><s:for-each select="@*">
+      <s:attribute name="{name()}"><s:value-of select="." /></s:attribute>
+  </s:for-each><s:apply-templates /></ul>
 </s:template>
 
 <s:template match="abstract">
@@ -1536,7 +1550,7 @@
 </s:stylesheet>
 <!-- rfc-ja.xsl *** RFC 2629 + 日本語訳 XML 形式 → XHTML 1.1
                     XSLT スタイルシート
-                $Date: 2002/07/26 11:58:31 $
+                $Date: 2002/09/01 09:21:05 $
 -->
 <!-- 謝辞
        この XSLT は、 xml2rfc 1.12 package の rfc2629.xslt から

@@ -1,3 +1,8 @@
+2002-09-01  Wakaba <w@suika.fam.cx>
+
+	* rfc_ja.xsl: (<?rfc-translation autoquote-samp-element="y/n">): New PI.
+	* rfc-ja-style.css (.ja-list-item-none): New rule.
+
 2002-07-25  Wakaba <w@suika.fam.cx>
 
 	* rfc_ja.xsl:
