@@ -4,7 +4,7 @@
      QName module
      
      Copyright 2003 Wakaba <w@suika.fam.cx>.
-     Revision: $Date: 2003/09/12 11:19:35 $
+     Revision: $Date: 2003/09/13 08:59:45 $
      
      SYSTEM "http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/2629/qname.mod"
   -->
@@ -20,8 +20,15 @@
 <!ENTITY % rfc2629.xmlns.extra.attrib "">
 
 <![%rfc2629.prefixed;[
+<!ENTITY % rfc2629.xmlns.decl.attrib
+	"xmlns:%rfc2629.prefix;	%URI.datatype;	#FIXED '%rfc2629.xmlns;'">
+]]>
+<!ENTITY % rfc2629.xmlns.decl.attrib
+	"xmlns	%URI.datatype;	#FIXED '%rfc2629.xmlns;'">
+
+<![%rfc2629.prefixed;[
 <!ENTITY % NS.decl.attrib
-	"xmlns:%rfc2629.prefix;	%URI.datatype;	#FIXED	'%rfc2629.xmlns;'
+	"%rfc2629.xmlns.decl.attrib;
 	%rfc2629.xmlns.extra.attrib;">
 ]]>
 <!ENTITY % NS.decl.attrib
@@ -32,7 +39,7 @@
 	"%NS.decl.attrib;">
 ]]>
 <!ENTITY % rfc2629.xmlns.attrib
-	"xmlns	%URI.datatype;	#FIXED	'%rfc2629.xmlns;'
+	"%rfc2629.xmlns.decl.attrib;
 	%NS.decl.attrib;">
 
 <!ENTITY % rfc2629.rfc.qname "%rfc2629.pfx;rfc">

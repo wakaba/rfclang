@@ -4,14 +4,14 @@
      Block Structural module
      
      Copyright 2003 Wakaba <w@suika.fam.cx>.
-     Revision: $Date: 2003/09/12 11:19:35 $
+     Revision: $Date: 2003/09/13 08:59:45 $
      
      SYSTEM "http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/2629/blkstruct.mod"
   -->
 
 <!ENTITY % rfc2629.section.element "INCLUDE">
 <![%rfc2629.section.element;[
-<!ENTITY % rfc2629.section.content "(%rfc2629.t.qname;|%rfc2629.figure.qname;|%rfc2629.iref.qname;|%rfc2629.section.qname;)*">
+<!ENTITY % rfc2629.section.content "(%rfc2629.block.class;)*">
 <!ELEMENT %rfc2629.section.qname; %rfc2629.section.content;>
 ]]>
 <!ENTITY % rfc2629.section.attlist "INCLUDE">

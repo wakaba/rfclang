@@ -4,14 +4,14 @@
      Meta information module
      
      Copyright 2003 Wakaba <w@suika.fam.cx>.
-     Revision: $Date: 2003/09/12 11:19:35 $
+     Revision: $Date: 2003/09/13 08:59:45 $
      
      SYSTEM "http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/2629/metainformation.mod"
   -->
 
 <!ENTITY % rfc2629.title.element "INCLUDE">
 <![%rfc2629.title.element;[
-<!ENTITY % rfc2629.title.content "(%rfc2629.CTEXT.datatype;)">
+<!ENTITY % rfc2629.title.content "%rfc2629.metaterm.content;">
 <!ELEMENT %rfc2629.title.qname; %rfc2629.title.content;>
 ]]>
 <!ENTITY % rfc2629.title.attlist "INCLUDE">
@@ -37,7 +37,7 @@
 
 <!ENTITY % rfc2629.organization.element "INCLUDE">
 <![%rfc2629.organization.element;[
-<!ENTITY % rfc2629.organization.content "(%rfc2629.CTEXT.datatype;)">
+<!ENTITY % rfc2629.organization.content "%rfc2629.metaterm.content;">
 <!ELEMENT %rfc2629.organization.qname; %rfc2629.organization.content;>
 ]]>
 <!ENTITY % rfc2629.organization.attlist "INCLUDE">
@@ -73,7 +73,7 @@
 
 <!ENTITY % rfc2629.street.element "INCLUDE">
 <![%rfc2629.street.element;[
-<!ENTITY % rfc2629.street.content "(%rfc2629.CTEXT.datatype;)">
+<!ENTITY % rfc2629.street.content "%rfc2629.metaterm.content;">
 <!ELEMENT %rfc2629.street.qname; %rfc2629.street.content;>
 ]]>
 <!ENTITY % rfc2629.street.attlist "INCLUDE">
@@ -84,7 +84,7 @@
 
 <!ENTITY % rfc2629.city.element "INCLUDE">
 <![%rfc2629.city.element;[
-<!ENTITY % rfc2629.city.content "(%rfc2629.CTEXT.datatype;)">
+<!ENTITY % rfc2629.city.content "%rfc2629.metaterm.content;">
 <!ELEMENT %rfc2629.city.qname; %rfc2629.city.content;>
 ]]>
 <!ENTITY % rfc2629.city.attlist "INCLUDE">
@@ -95,7 +95,7 @@
 
 <!ENTITY % rfc2629.region.element "INCLUDE">
 <![%rfc2629.region.element;[
-<!ENTITY % rfc2629.region.content "(%rfc2629.CTEXT.datatype;)">
+<!ENTITY % rfc2629.region.content "%rfc2629.metaterm.content;">
 <!ELEMENT %rfc2629.region.qname; %rfc2629.region.content;>
 ]]>
 <!ENTITY % rfc2629.region.attlist "INCLUDE">
@@ -106,7 +106,7 @@
 
 <!ENTITY % rfc2629.code.element "INCLUDE">
 <![%rfc2629.code.element;[
-<!ENTITY % rfc2629.code.content "(%rfc2629.CTEXT.datatype;)">
+<!ENTITY % rfc2629.code.content "%rfc2629.metaterm.content;">
 <!ELEMENT %rfc2629.code.qname; %rfc2629.code.content;>
 ]]>
 <!ENTITY % rfc2629.code.attlist "INCLUDE">
@@ -117,7 +117,7 @@
 
 <!ENTITY % rfc2629.country.element "INCLUDE">
 <![%rfc2629.country.element;[
-<!ENTITY % rfc2629.country.content "(%rfc2629.CTEXT.datatype;)">
+<!ENTITY % rfc2629.country.content "%rfc2629.metaterm.content;">
 <!ELEMENT %rfc2629.country.qname; %rfc2629.country.content;>
 ]]>
 <!ENTITY % rfc2629.country.attlist "INCLUDE">
@@ -128,7 +128,7 @@
 
 <!ENTITY % rfc2629.phone.element "INCLUDE">
 <![%rfc2629.phone.element;[
-<!ENTITY % rfc2629.phone.content "(%rfc2629.CTEXT.datatype;)">
+<!ENTITY % rfc2629.phone.content "%rfc2629.metaterm.content;">
 <!ELEMENT %rfc2629.phone.qname; %rfc2629.phone.content;>
 ]]>
 <!ENTITY % rfc2629.phone.attlist "INCLUDE">
@@ -139,7 +139,7 @@
 
 <!ENTITY % rfc2629.facsimile.element "INCLUDE">
 <![%rfc2629.facsimile.element;[
-<!ENTITY % rfc2629.facsimile.content "(%rfc2629.CTEXT.datatype;)">
+<!ENTITY % rfc2629.facsimile.content "%rfc2629.metaterm.content;">
 <!ELEMENT %rfc2629.facsimile.qname; %rfc2629.facsimile.content;>
 ]]>
 <!ENTITY % rfc2629.facsimile.attlist "INCLUDE">
@@ -150,7 +150,7 @@
 
 <!ENTITY % rfc2629.email.element "INCLUDE">
 <![%rfc2629.email.element;[
-<!ENTITY % rfc2629.email.content "(%rfc2629.CTEXT.datatype;)">
+<!ENTITY % rfc2629.email.content "%rfc2629.metaterm.content;">
 <!ELEMENT %rfc2629.email.qname; %rfc2629.email.content;>
 ]]>
 <!ENTITY % rfc2629.email.attlist "INCLUDE">
@@ -161,7 +161,7 @@
 
 <!ENTITY % rfc2629.uri.element "INCLUDE">
 <![%rfc2629.uri.element;[
-<!ENTITY % rfc2629.uri.content "(%rfc2629.CTEXT.datatype;)">
+<!ENTITY % rfc2629.uri.content "%rfc2629.metaterm.content;">
 <!ELEMENT %rfc2629.uri.qname; %rfc2629.uri.content;>
 ]]>
 <!ENTITY % rfc2629.uri.attlist "INCLUDE">
@@ -186,7 +186,7 @@
 
 <!ENTITY % rfc2629.area.element "INCLUDE">
 <![%rfc2629.area.element;[
-<!ENTITY % rfc2629.area.content "(%rfc2629.CTEXT.datatype;)">
+<!ENTITY % rfc2629.area.content "%rfc2629.metaterm.content;">
 <!ELEMENT %rfc2629.area.qname; %rfc2629.area.content;>
 ]]>
 <!ENTITY % rfc2629.area.attlist "INCLUDE">
@@ -197,7 +197,7 @@
 
 <!ENTITY % rfc2629.workgroup.element "INCLUDE">
 <![%rfc2629.workgroup.element;[
-<!ENTITY % rfc2629.workgroup.content "(%rfc2629.CTEXT.datatype;)">
+<!ENTITY % rfc2629.workgroup.content "%rfc2629.metaterm.content;">
 <!ELEMENT %rfc2629.workgroup.qname; %rfc2629.workgroup.content;>
 ]]>
 <!ENTITY % rfc2629.workgroup.attlist "INCLUDE">
@@ -208,7 +208,7 @@
 
 <!ENTITY % rfc2629.keyword.element "INCLUDE">
 <![%rfc2629.keyword.element;[
-<!ENTITY % rfc2629.keyword.content "(%rfc2629.CTEXT.datatype;)">
+<!ENTITY % rfc2629.keyword.content "%rfc2629.metaterm.content;">
 <!ELEMENT %rfc2629.keyword.qname; %rfc2629.keyword.content;>
 ]]>
 <!ENTITY % rfc2629.keyword.attlist "INCLUDE">
