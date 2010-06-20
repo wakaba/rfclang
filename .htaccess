@@ -1,0 +1,6 @@
+AddType text/plain .dms .dds
+
+AddType application/xslt+xml .xsl
+AddCharset iso-2022-jp .xsl
+
+## License: Public Domain.
