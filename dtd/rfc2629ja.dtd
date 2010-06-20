@@ -1,0 +1,486 @@
+<!-- ....................................................................... -->
+<!-- Markup Language for IETF RFCs with Japanese Translation Markup Framework
+              DTD ......................................................... -->
+<!-- file: rfc2629ja.dtd
+-->
+
+<!-- Markup Language for IETF RFCs with Japanese Translation Markup Framework DTD
+
+     This is an RFC markup language with additional markup for RFC translations.
+
+     Copyright 2010 Wakaba <w@suika.fam.cx>, All Rights Reserved.
+
+     Permission to use, copy, modify and distribute this DTD and its
+     accompanying documentation for any purpose and without fee is hereby
+     granted in perpetuity, provided that the above copyright notice and
+     this paragraph appear in all copies.  The copyright holders make no
+     representation about the suitability of the DTD for any purpose.
+
+     It is provided "as is" without expressed or implied warranty.
+
+       Revision: 2010-06-20T04:44:39+00:00
+
+-->
+<!-- This is the driver file for the Markup Language for IETF RFCs with Japanese Translation Markup Framework DTD.
+
+     This DTD is identified by the SYSTEM identifier:
+
+     SYSTEM "http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/rfc2629ja.dtd"
+-->
+
+<!-- Switchers to include/ignore each vocabulary -->
+<!ENTITY % rfc2629.module "INCLUDE">
+<!ENTITY % rfc2629ja.module "INCLUDE">
+<!ENTITY % myns.module "INCLUDE">
+<!ENTITY % XHTML.module "INCLUDE">
+<!ENTITY % XHTML2.module "IGNORE">
+
+<!-- Namespace names -->
+<!ENTITY % rfc2629.xmlns "urn:x-suika-fam-cx:markup:ietf:rfc:2629:">
+<!ENTITY % rfc2629ja.xmlns "http://suika.fam.cx/~wakaba/lang/rfc/translation/">
+<!ENTITY % myns.xmlns "mailto:julian.reschke@greenbytes.de?subject=rcf2629.xslt">
+<!ENTITY % XHTML.xmlns "http://www.w3.org/1999/xhtml">
+<!ENTITY % XHTML2.xmlns "http://www.w3.org/2003/06/xhtml2">
+
+<!-- Base URIs for the relavant DTD modules -->
+<!ENTITY % rfc2629.sysid.base "module/">
+<!ENTITY % rfc2629ja.sysid.base "module/">
+<!ENTITY % myns.sysid.base "module/">
+<!ENTITY % XHTML.sysid.base "http://www.w3.org/TR/xhtml-modularization/DTD/">
+<!ENTITY % XHTML2.sysid.base "http://www.w3.org/TR/xhtml2/DTD/">
+
+<!-- Namespace prefix -->
+<!ENTITY % NS.prefixed "INCLUDE">
+<!ENTITY % rfc2629.prefix "rfc">
+<!ENTITY % rfc2629.prefixed "IGNORE">
+<!ENTITY % rfc2629ja.prefix "ja">
+<!ENTITY % rfc2629ja.prefixed "INCLUDE">
+<!ENTITY % myns.prefix "myns">
+<!ENTITY % myns.prefixed "INCLUDE">
+<!ENTITY % XHTML.prefix "h">
+<!ENTITY % XHTML.prefixed "INCLUDE">
+<!ENTITY % XHTML2.prefix "h2">
+<!ENTITY % XHTML2.prefixed "INCLUDE">
+
+<!-- a URI reference -->
+<!ENTITY % URI.datatype "CDATA">
+
+<!-- Placefolders for foreign namespace declarations -->
+<!ENTITY % rfc2629.xmlns.extra.attrib "">
+<!ENTITY % rfc2629ja.xmlns.extra.attrib "">
+<!ENTITY % myns.xmlns.extra.attrib "">
+<!ENTITY % XHTML.xmlns.extra.attrib "">
+<!ENTITY % XHTML2.xmlns.extra.attrib "">
+
+<!-- Namespace declarations -->
+<![%rfc2629.module;[
+<![%rfc2629.prefixed;[
+<!ENTITY % rfc2629.xmlns.decl.attrib
+	"xmlns:%rfc2629.prefix;	%URI.datatype;	#FIXED '%rfc2629.xmlns;'">
+]]>
+<!ENTITY % rfc2629.xmlns.decl.attrib
+	"xmlns	%URI.datatype;	#FIXED '%rfc2629.xmlns;'">
+]]>
+<!ENTITY % rfc2629.xmlns.decl.attrib "">
+
+<![%rfc2629ja.module;[
+<![%rfc2629ja.prefixed;[
+<!ENTITY % rfc2629ja.xmlns.decl.attrib
+	"xmlns:%rfc2629ja.prefix;	%URI.datatype;	#FIXED '%rfc2629ja.xmlns;'">
+]]>
+<!ENTITY % rfc2629ja.xmlns.decl.attrib
+	"xmlns	%URI.datatype;	#FIXED '%rfc2629ja.xmlns;'">
+]]>
+<!ENTITY % rfc2629ja.xmlns.decl.attrib "">
+
+<![%myns.module;[
+<![%myns.prefixed;[
+<!ENTITY % myns.xmlns.decl.attrib
+	"xmlns:%myns.prefix;	%URI.datatype;	#FIXED '%myns.xmlns;'">
+]]>
+<!ENTITY % myns.xmlns.decl.attrib
+	"xmlns	%URI.datatype;	#FIXED '%myns.xmlns;'">
+]]>
+<!ENTITY % myns.xmlns.decl.attrib "">
+
+<![%XHTML.module;[
+<![%XHTML.prefixed;[
+<!ENTITY % XHTML.xmlns.decl.attrib
+	"xmlns:%XHTML.prefix;	%URI.datatype;	#FIXED '%XHTML.xmlns;'">
+]]>
+<!ENTITY % XHTML.xmlns.decl.attrib
+	"xmlns	%URI.datatype;	#FIXED '%XHTML.xmlns;'">
+]]>
+<!ENTITY % XHTML.xmlns.decl.attrib "">
+
+<![%XHTML2.module;[
+<![%XHTML2.prefixed;[
+<!ENTITY % XHTML2.xmlns.decl.attrib
+	"xmlns:%XHTML2.prefix;	%URI.datatype;	#FIXED '%XHTML2.xmlns;'">
+]]>
+<!ENTITY % XHTML2.xmlns.decl.attrib
+	"xmlns	%URI.datatype;	#FIXED '%XHTML2.xmlns;'">
+]]>
+<!ENTITY % XHTML2.xmlns.decl.attrib "">
+
+<!-- Declare a parameter entity %XSI.prefix as a prefix to use for
+     XML Schema Instance attributes. -->
+<!ENTITY % XSI.prefix "xsi">
+
+<!ENTITY % XSI.pfx "%XSI.prefix;:">
+
+<!ENTITY % XSI.xmlns "http://www.w3.org/2001/XMLSchema-instance">
+
+<!-- Declare a parameter entity %XSI.xmlns.attrib as support for
+     the schemaLocation attribute. -->
+<!ENTITY % XSI.xmlns.attrib
+	"xmlns:%XSI.prefix;	%URI.datatype;	#FIXED '%XSI.xmlns;'">
+
+<!ENTITY % NS.decl.attrib
+	"%rfc2629.xmlns.decl.attrib;
+	%rfc2629ja.xmlns.decl.attrib;
+	%myns.xmlns.decl.attrib;
+	%XHTML.xmlns.decl.attrib;
+	%XHTML2.xmlns.decl.attrib;
+	%rfc2629.xmlns.extra.attrib;
+	%rfc2629ja.xmlns.extra.attrib;
+	%myns.xmlns.extra.attrib;
+	%XHTML.xmlns.extra.attrib;
+	%XHTML2.xmlns.extra.attrib;
+	%XSI.xmlns.attrib;">
+
+<!ENTITY % rfc2629.xmlns.attrib "%NS.decl.attrib;">
+<!ENTITY % rfc2629ja.xmlns.attrib "%NS.decl.attrib;">
+<!ENTITY % myns.xmlns.attrib "%NS.decl.attrib;">
+<!ENTITY % XHTML.xmlns.attrib "%NS.decl.attrib;">
+<!ENTITY % XHTML2.xmlns.attrib "%NS.decl.attrib;">
+
+
+<!-- QName Module -->
+<![%XHTML.module;[
+<!ENTITY % XHTML.qname.module "INCLUDE">
+<![%XHTML.qname.module;[
+<!ENTITY % XHTML.qname.decl
+	'PUBLIC "-//W3C//ENTITIES XHTML Qualified Names 1.0//EN"
+	       "%XHTML.sysid.base;xhtml-qname-1.mod"'>
+<!ENTITY % XHTML.qname.mod %XHTML.qname.decl;>
+%XHTML.qname.mod;]]>
+]]>
+
+<!-- QName Module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.qname.module "INCLUDE">
+<![%rfc2629.qname.module;[
+<!ENTITY % rfc2629.qname.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-qname.mod"'>
+<!ENTITY % rfc2629.qname.mod %rfc2629.qname.decl;>
+%rfc2629.qname.mod;]]>
+]]>
+
+<!-- QName Module -->
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.qname.module "INCLUDE">
+<![%rfc2629ja.qname.module;[
+<!ENTITY % rfc2629ja.qname.decl
+	'SYSTEM "%rfc2629ja.sysid.base;rfc2629ja-qname.mod"'>
+<!ENTITY % rfc2629ja.qname.mod %rfc2629ja.qname.decl;>
+%rfc2629ja.qname.mod;]]>
+]]>
+
+<!-- QName Module -->
+<![%myns.module;[
+<!ENTITY % myns.qname.module "INCLUDE">
+<![%myns.qname.module;[
+<!ENTITY % myns.qname.decl
+	'SYSTEM "%myns.sysid.base;myns-qname.mod"'>
+<!ENTITY % myns.qname.mod %myns.qname.decl;>
+%myns.qname.mod;]]>
+]]>
+
+<!-- Datatypes Module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.datatype.module "INCLUDE">
+<![%rfc2629.datatype.module;[
+<!ENTITY % rfc2629.datatype.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-datatype.mod"'>
+<!ENTITY % rfc2629.datatype.mod %rfc2629.datatype.decl;>
+%rfc2629.datatype.mod;]]>
+]]>
+
+<!-- Datatypes Module -->
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.datatype.module "INCLUDE">
+<![%rfc2629ja.datatype.module;[
+<!ENTITY % rfc2629ja.datatype.decl
+	'SYSTEM "%rfc2629ja.sysid.base;rfc2629ja-datatype.mod"'>
+<!ENTITY % rfc2629ja.datatype.mod %rfc2629ja.datatype.decl;>
+%rfc2629ja.datatype.mod;]]>
+]]>
+
+<!-- Datatypes Module -->
+<![%XHTML.module;[
+<!ENTITY % XHTML.datatype.module "INCLUDE">
+<![%XHTML.datatype.module;[
+<!ENTITY % XHTML.datatype.decl
+	'PUBLIC "-//W3C//ENTITIES XHTML Datatypes 1.0//EN"
+	       "%XHTML.sysid.base;xhtml-datatypes-1.mod"'>
+<!ENTITY % XHTML.datatype.mod %XHTML.datatype.decl;>
+%XHTML.datatype.mod;]]>
+]]>
+
+<!-- Datatypes Module -->
+<![%myns.module;[
+<!ENTITY % myns.datatype.module "INCLUDE">
+<![%myns.datatype.module;[
+<!ENTITY % myns.datatype.decl
+	'SYSTEM "%myns.sysid.base;myns-datatype.mod"'>
+<!ENTITY % myns.datatype.mod %myns.datatype.decl;>
+%myns.datatype.mod;]]>
+]]>
+
+<!-- Notation Module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.notation.module "INCLUDE">
+<![%rfc2629.notation.module;[
+<!ENTITY % rfc2629.notation.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-notation.mod"'>
+<!ENTITY % rfc2629.notation.mod %rfc2629.notation.decl;>
+%rfc2629.notation.mod;]]>
+]]>
+
+<!-- Notation Module -->
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.notation.module "INCLUDE">
+<![%rfc2629ja.notation.module;[
+<!ENTITY % rfc2629ja.notation.decl
+	'SYSTEM "%rfc2629ja.sysid.base;rfc2629ja-notation.mod"'>
+<!ENTITY % rfc2629ja.notation.mod %rfc2629ja.notation.decl;>
+%rfc2629ja.notation.mod;]]>
+]]>
+
+<!-- Common Attributes Module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.attribs.module "INCLUDE">
+<![%rfc2629.attribs.module;[
+<!ENTITY % rfc2629.common.extra.attrib
+	"xml:base	%URI.datatype;	#IMPLIED
+	xml:lang	%LanguageCode.datatype;	#IMPLIED
+	xml:space	(default|preserve)	#IMPLIED">
+
+<!ENTITY % rfc2629.attribs.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-attribs.mod"'>
+<!ENTITY % rfc2629.attribs.mod %rfc2629.attribs.decl;>
+%rfc2629.attribs.mod;]]>
+]]>
+
+<!-- Common Attributes Module -->
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.attribs.module "INCLUDE">
+<![%rfc2629ja.attribs.module;[
+<!ENTITY % rfc2629ja.attribs.decl
+	'SYSTEM "%rfc2629ja.sysid.base;rfc2629ja-attribs.mod"'>
+<!ENTITY % rfc2629ja.attribs.mod %rfc2629ja.attribs.decl;>
+%rfc2629ja.attribs.mod;]]>
+]]>
+
+<!-- Common Attributes Module -->
+<![%XHTML.module;[
+<!ENTITY % XHTML.attribs.module "INCLUDE">
+<![%XHTML.attribs.module;[
+<!ENTITY % rfc2629ja.XHTML.bidi "INCLUDE">
+<!ENTITY % XHTML.common.extra.attrib
+	"xml:base	%URI.datatype;	#IMPLIED
+	xml:space	(default|preserve)	#IMPLIED">
+
+<!ENTITY % XHTML.attribs.decl
+	'PUBLIC "-//W3C//ENTITIES XHTML Common Attributes 1.0//EN"
+	       "%XHTML.sysid.base;xhtml-attribs-1.mod"'>
+<!ENTITY % XHTML.attribs.mod %XHTML.attribs.decl;>
+%XHTML.attribs.mod;]]>
+]]>
+
+<!-- Block structural module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.blkstruct.module "INCLUDE">
+<![%rfc2629.blkstruct.module;[
+<!ENTITY % rfc2629.blkstruct.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-blkstruct.mod"'>
+<!ENTITY % rfc2629.blkstruct.mod %rfc2629.blkstruct.decl;>
+%rfc2629.blkstruct.mod;]]>
+]]>
+
+<!-- h:ul, h:ol, h:dl, h:li, h:dt, h:dd -->
+<![%XHTML.module;[
+<!ENTITY % XHTML.list.module "INCLUDE">
+<![%XHTML.list.module;[
+<!ENTITY % XHTML.list.decl
+	'PUBLIC "-//W3C//ELEMENTS XHTML Lists 1.0//EN"
+	       "%XHTML.sysid.base;xhtml-list-1.mod"'>
+<!ENTITY % XHTML.list.mod %XHTML.list.decl;>
+%XHTML.list.mod;]]>
+]]>
+
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.blkstruct.module "INCLUDE">
+<![%rfc2629ja.blkstruct.module;[
+<!ENTITY % rfc2629ja.blkstruct.decl
+	'SYSTEM "%rfc2629ja.sysid.base;rfc2629ja-blkstruct.mod"'>
+<!ENTITY % rfc2629ja.blkstruct.mod %rfc2629ja.blkstruct.decl;>
+%rfc2629ja.blkstruct.mod;]]>
+]]>
+
+<![%myns.module;[
+<!ENTITY % myns.blkstruct.module "INCLUDE">
+<![%myns.blkstruct.module;[
+<!ENTITY % myns.blkstruct.decl
+	'SYSTEM "%myns.sysid.base;myns-blkstruct.mod"'>
+<!ENTITY % myns.blkstruct.mod %myns.blkstruct.decl;>
+%myns.blkstruct.mod;]]>
+]]>
+
+<!-- h:div -->
+<![%XHTML.module;[
+<!ENTITY % XHTML.blkstruct.module "INCLUDE">
+<![%XHTML.blkstruct.module;[
+<!ENTITY % p.element "IGNORE">
+<!ENTITY % p.attlist "IGNORE">
+<!ENTITY % XHTML.blkstruct.decl
+	'PUBLIC "-//W3C//ELEMENTS XHTML Block Structural 1.0//EN"
+	       "%XHTML.sysid.base;xhtml-blkstruct-1.mod"'>
+<!ENTITY % XHTML.blkstruct.mod %XHTML.blkstruct.decl;>
+%XHTML.blkstruct.mod;]]>
+]]>
+
+<!-- Figure module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.figure.module "INCLUDE">
+<![%rfc2629.figure.module;[
+<!ENTITY % rfc2629.figure.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-figure.mod"'>
+<!ENTITY % rfc2629.figure.mod %rfc2629.figure.decl;>
+%rfc2629.figure.mod;]]>
+]]>
+
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.figure.module "INCLUDE">
+<![%rfc2629ja.figure.module;[
+<!ENTITY % rfc2629ja.figure.decl
+	'SYSTEM "%rfc2629ja.sysid.base;rfc2629ja-figure.mod"'>
+<!ENTITY % rfc2629ja.figure.mod %rfc2629ja.figure.decl;>
+%rfc2629ja.figure.mod;]]>
+]]>
+
+<![%XHTML.module;[
+<!ENTITY % XHTML.table.module "INCLUDE">
+<![%XHTML.table.module;[
+<!ENTITY % rfc2629ja.frame.attrib "">
+<!ENTITY % rfc2629ja.rules.attrib "">
+<!ENTITY % rfc2629ja.CellHAlign.attrib "">
+<!ENTITY % rfc2629ja.CellVAlign.attrib "">
+<!ENTITY % XHTML.table.decl
+	'PUBLIC "-//W3C//ELEMENTS XHTML Tables 1.0//EN"
+	       "%XHTML.sysid.base;xhtml-table-1.mod"'>
+<!ENTITY % XHTML.table.mod %XHTML.table.decl;>
+%XHTML.table.mod;]]>
+]]>
+
+<!-- Metainformational module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.metainfo.module "INCLUDE">
+<![%rfc2629.metainfo.module;[
+<!ENTITY % rfc2629.metainfo.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-metainfo.mod"'>
+<!ENTITY % rfc2629.metainfo.mod %rfc2629.metainfo.decl;>
+%rfc2629.metainfo.mod;]]>
+]]>
+
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.metainfo.module "INCLUDE">
+<![%rfc2629ja.metainfo.module;[
+<!ENTITY % rfc2629ja.metainfo.decl
+	'SYSTEM "%rfc2629ja.sysid.base;rfc2629ja-metainfo.mod"'>
+<!ENTITY % rfc2629ja.metainfo.mod %rfc2629ja.metainfo.decl;>
+%rfc2629ja.metainfo.mod;]]>
+]]>
+
+<!-- Stylesheet -->
+<![%XHTML.module;[
+<!ENTITY % XHTML.style.module "INCLUDE">
+<![%XHTML.style.module;[
+<!ENTITY % style.attlist "INCLUDE">
+<![%style.attlist;[
+<!ATTLIST %style.qname;
+	media	%MediaDesc.datatype;	"all">
+<!-- end of style.attlist -->]]>
+
+<!ENTITY % XHTML.style.decl
+	'PUBLIC "-//W3C//ELEMENTS XHTML Style Sheets 1.0//EN"
+	       "%XHTML.sysid.base;xhtml-style-1.mod"'>
+<!ENTITY % XHTML.style.mod %XHTML.style.decl;>
+%XHTML.style.mod;]]>
+]]>
+
+<!-- Reference and hyperlink module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.reference.module "INCLUDE">
+<![%rfc2629.reference.module;[
+<!ENTITY % rfc2629.reference.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-reference.mod"'>
+<!ENTITY % rfc2629.reference.mod %rfc2629.reference.decl;>
+%rfc2629.reference.mod;]]>
+]]>
+
+<!-- Hyperlink module -->
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.link.module "INCLUDE">
+<![%rfc2629ja.link.module;[
+<!ENTITY % rfc2629ja.link.decl
+	'SYSTEM "%rfc2629ja.sysid.base;rfc2629ja-link.mod"'>
+<!ENTITY % rfc2629ja.link.mod %rfc2629ja.link.decl;>
+%rfc2629ja.link.mod;]]>
+]]>
+
+<!-- Inline Phrasal module
+     h:abbr, h:cite, h:code, h:dfn, h:em, h:kbd, h:q, h:samp, h:var -->
+<![%XHTML.module;[
+<!ENTITY % XHTML.inlphras.module "INCLUDE">
+<![%XHTML.inlphras.module;[
+<!ENTITY % acronym.element "IGNORE">
+<!ENTITY % acronym.attlist "IGNORE">
+<!ENTITY % strong.element "IGNORE">
+<!ENTITY % strong.attlist "IGNORE">
+<!ENTITY % XHTML.inlphras.decl
+	'PUBLIC "-//W3C//ELEMENTS XHTML Inline Phrasal 1.0//EN"
+	       "%XHTML.sysid.base;xhtml-inlphras-1.mod"'>
+<!ENTITY % XHTML.inlphras.mod %XHTML.inlphras.decl;>
+%XHTML.inlphras.mod;]]>
+]]>
+
+<!-- Document structural module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.struct.module "INCLUDE">
+<![%rfc2629.struct.module;[
+<!ENTITY % rfc2629.struct.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-struct.mod"'>
+<!ENTITY % rfc2629.struct.mod %rfc2629.struct.decl;>
+%rfc2629.struct.mod;]]>
+]]>
+
+<!-- Translation structural module -->
+<![%rfc2629ja.module;[
+<!ENTITY % rfc2629ja.transtruct.module "INCLUDE">
+<![%rfc2629ja.transtruct.module;[
+<!ENTITY % rfc2629ja.transtruct.decl
+	'SYSTEM "%rfc2629ja.sysid.base;rfc2629ja-transtruct.mod"'>
+<!ENTITY % rfc2629ja.transtruct.mod %rfc2629ja.transtruct.decl;>
+%rfc2629ja.transtruct.mod;]]>
+]]>
+
+<!-- General entity "rfc.number"
+     
+     If you use this entity, you should define this entity with your RFC issued
+     number in the internal subset of DOCTYPE declaration of your RFC document. -->
+<!ENTITY rfc.number "XXXX">
+
+
+<!-- end of rfc2629ja.dtd -->

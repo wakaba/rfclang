@@ -4,7 +4,7 @@ ModuleSet:
   @Name: Markup Language for IETF RFC
   @Version:
     Additional vocabularies used in rfc2629.xslt : 'ed'
-  @ID: myns
+  @ID: ed
   @BaseURI:
     http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/module/
   

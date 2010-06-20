@@ -1,0 +1,179 @@
+<!-- ....................................................................... -->
+<!-- Markup Language for IETF RFCs (RFC 2629) DTD ......................... -->
+<!-- file: rfc2629.dtd
+-->
+
+<!-- Markup Language for IETF RFCs (RFC 2629) DTD
+
+     This is a XML based markup language for IETF RFC documents.
+
+     Copyright 2010 Wakaba <w@suika.fam.cx>, All Rights Reserved.
+
+     Permission to use, copy, modify and distribute this DTD and its
+     accompanying documentation for any purpose and without fee is hereby
+     granted in perpetuity, provided that the above copyright notice and
+     this paragraph appear in all copies.  The copyright holders make no
+     representation about the suitability of the DTD for any purpose.
+
+     It is provided "as is" without expressed or implied warranty.
+
+       Revision: 2010-06-20T04:44:39+00:00
+
+-->
+<!-- This is the driver file for the Markup Language for IETF RFCs (RFC 2629) DTD.
+
+     This DTD is identified by the SYSTEM identifier:
+
+     SYSTEM "http://suika.fam.cx/gate/cvs/*checkout*/markup/rfc/dtd/rfc2629.dtd"
+-->
+
+<!-- Switchers to include/ignore each vocabulary -->
+<!ENTITY % rfc2629.module "INCLUDE">
+
+<!-- Namespace names -->
+<!ENTITY % rfc2629.xmlns "urn:x-suika-fam-cx:markup:ietf:rfc:2629:">
+
+<!-- Base URIs for the relavant DTD modules -->
+<!ENTITY % rfc2629.sysid.base "module/">
+
+<!-- Namespace prefix -->
+<!ENTITY % NS.prefixed "IGNORE">
+<!ENTITY % rfc2629.prefix "rfc">
+<!ENTITY % rfc2629.prefixed "IGNORE">
+
+<!-- a URI reference -->
+<!ENTITY % URI.datatype "CDATA">
+
+<!-- Placefolders for foreign namespace declarations -->
+<!ENTITY % rfc2629.xmlns.extra.attrib "">
+
+<!-- Namespace declarations -->
+<![%rfc2629.module;[
+<![%rfc2629.prefixed;[
+<!ENTITY % rfc2629.xmlns.decl.attrib
+	"xmlns:%rfc2629.prefix;	%URI.datatype;	#FIXED '%rfc2629.xmlns;'">
+]]>
+<!ENTITY % rfc2629.xmlns.decl.attrib
+	"xmlns	%URI.datatype;	#FIXED '%rfc2629.xmlns;'">
+]]>
+<!ENTITY % rfc2629.xmlns.decl.attrib "">
+
+<!-- Declare a parameter entity %XSI.prefix as a prefix to use for
+     XML Schema Instance attributes. -->
+<!ENTITY % XSI.prefix "xsi">
+
+<!ENTITY % XSI.pfx "%XSI.prefix;:">
+
+<!ENTITY % XSI.xmlns "http://www.w3.org/2001/XMLSchema-instance">
+
+<!-- Declare a parameter entity %XSI.xmlns.attrib as support for
+     the schemaLocation attribute. -->
+<!ENTITY % XSI.xmlns.attrib
+	"xmlns:%XSI.prefix;	%URI.datatype;	#FIXED '%XSI.xmlns;'">
+
+<!ENTITY % NS.decl.attrib
+	"%rfc2629.xmlns.decl.attrib;
+	%rfc2629.xmlns.extra.attrib;
+	%XSI.xmlns.attrib;">
+
+<!ENTITY % rfc2629.xmlns.attrib "%NS.decl.attrib;">
+
+
+<!-- QName Module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.qname.module "INCLUDE">
+<![%rfc2629.qname.module;[
+<!ENTITY % rfc2629.qname.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-qname.mod"'>
+<!ENTITY % rfc2629.qname.mod %rfc2629.qname.decl;>
+%rfc2629.qname.mod;]]>
+]]>
+
+<!-- Datatypes Module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.datatype.module "INCLUDE">
+<![%rfc2629.datatype.module;[
+<!ENTITY % rfc2629.datatype.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-datatype.mod"'>
+<!ENTITY % rfc2629.datatype.mod %rfc2629.datatype.decl;>
+%rfc2629.datatype.mod;]]>
+]]>
+
+<!-- Notation Module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.notation.module "INCLUDE">
+<![%rfc2629.notation.module;[
+<!ENTITY % rfc2629.notation.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-notation.mod"'>
+<!ENTITY % rfc2629.notation.mod %rfc2629.notation.decl;>
+%rfc2629.notation.mod;]]>
+]]>
+
+<!-- Common Attributes Module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.attribs.module "INCLUDE">
+<![%rfc2629.attribs.module;[
+<!ENTITY % rfc2629.attribs.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-attribs.mod"'>
+<!ENTITY % rfc2629.attribs.mod %rfc2629.attribs.decl;>
+%rfc2629.attribs.mod;]]>
+]]>
+
+<!-- Block structural module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.blkstruct.module "INCLUDE">
+<![%rfc2629.blkstruct.module;[
+<!ENTITY % rfc2629.blkstruct.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-blkstruct.mod"'>
+<!ENTITY % rfc2629.blkstruct.mod %rfc2629.blkstruct.decl;>
+%rfc2629.blkstruct.mod;]]>
+]]>
+
+<!-- Figure module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.figure.module "INCLUDE">
+<![%rfc2629.figure.module;[
+<!ENTITY % rfc2629.figure.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-figure.mod"'>
+<!ENTITY % rfc2629.figure.mod %rfc2629.figure.decl;>
+%rfc2629.figure.mod;]]>
+]]>
+
+<!-- Metainformational module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.metainfo.module "INCLUDE">
+<![%rfc2629.metainfo.module;[
+<!ENTITY % rfc2629.metainfo.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-metainfo.mod"'>
+<!ENTITY % rfc2629.metainfo.mod %rfc2629.metainfo.decl;>
+%rfc2629.metainfo.mod;]]>
+]]>
+
+<!-- Reference and hyperlink module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.reference.module "INCLUDE">
+<![%rfc2629.reference.module;[
+<!ENTITY % rfc2629.reference.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-reference.mod"'>
+<!ENTITY % rfc2629.reference.mod %rfc2629.reference.decl;>
+%rfc2629.reference.mod;]]>
+]]>
+
+<!-- Document structure module -->
+<![%rfc2629.module;[
+<!ENTITY % rfc2629.struct.module "INCLUDE">
+<![%rfc2629.struct.module;[
+<!ENTITY % rfc2629.struct.decl
+	'SYSTEM "%rfc2629.sysid.base;rfc2629-struct.mod"'>
+<!ENTITY % rfc2629.struct.mod %rfc2629.struct.decl;>
+%rfc2629.struct.mod;]]>
+]]>
+
+<!-- General entity "rfc.number"
+     
+     If you use this entity, you should define this entity with your RFC issued
+     number in the internal subset of DOCTYPE declaration of your RFC document. -->
+<!ENTITY rfc.number "XXXX">
+
+
+<!-- end of rfc2629.dtd -->
