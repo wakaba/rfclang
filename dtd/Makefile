@@ -1,6 +1,8 @@
 BIN = ../../tool/
 
 PERL = perl 
+
+## <http://suika.fam.cx/gate/git/wi/markup/misc.git/blob/HEAD:/tool/mkdtds.pl>
 MKDTDS = $(BIN)mkdtds.pl
 
 all: rfc2629.dtd rfc2629ja.dtd
