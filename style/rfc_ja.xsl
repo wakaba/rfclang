@@ -15,11 +15,11 @@
     doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" />
   <!--<s:output encoding="iso-2022-jp" indent="yes"
     method="html" doctype-public="-//W3C//DTD HTML 4.01//EN" />-->
-  <s:param name="uri-rfc-prefix" select="'http://suika.fam.cx/uri-res/N2L?urn:ietf:rfc:'" />
-  <s:param name="uri-std-prefix" select="'http://suika.fam.cx/uri-res/N2L?urn:ietf:std:'" />
-  <s:param name="uri-bcp-prefix" select="'http://suika.fam.cx/uri-res/N2L?urn:ietf:bcp:'" />
-  <s:param name="uri-fyi-prefix" select="'http://suika.fam.cx/uri-res/N2L?urn:ietf:fyi:'" />
-  <s:param name="uri-stylesheet-css" select="'http://suika.fam.cx/~wakaba/lang/rfc/translation/rfc-ja-style.css'" />
+  <s:param name="uri-rfc-prefix" select="'https://suika.suikawiki.org/uri-res/N2L?urn:ietf:rfc:'" />
+  <s:param name="uri-std-prefix" select="'https://suika.suikawiki.org/uri-res/N2L?urn:ietf:std:'" />
+  <s:param name="uri-bcp-prefix" select="'https://suika.suikawiki.org/uri-res/N2L?urn:ietf:bcp:'" />
+  <s:param name="uri-fyi-prefix" select="'https://suika.suikawiki.org/uri-res/N2L?urn:ietf:fyi:'" />
+  <s:param name="uri-stylesheet-css" select="'https://suika.suikawiki.org/~wakaba/lang/rfc/translation/rfc-ja-style.css'" />
   
   <!-- <?rfc toc="yes/no"?> (default no)
                             (you can use ja:insert element instead) -->
@@ -1574,12 +1574,12 @@
 -->
 <!-- SEE ALSO
     ・<urn:ietf:rfc:2629>
-    ・<http://suika.fam.cx/~wakaba/lang/rfc/translation/>
-    ・<http://suika.fam.cx/~wakaba/document/rfc-ja/>
+    ・<https://suika.suikawiki.org/~wakaba/lang/rfc/translation/>
+    ・<https://suika.suikawiki.org/~wakaba/document/rfc-ja/>
 -->
 <!-- LICENSE
 
-Copyright 2002 wakaba <w@suika.fam.cx>.
+Copyright 2002 wakaba <wakaba@suikawiki.org>.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
